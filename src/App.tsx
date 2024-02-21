@@ -1,9 +1,7 @@
-import React from 'react';
+import { FormTextArea } from "./components/FormTextArea";
 
 export const App = () => {
   return (
-    <div>
-      Hello World!
-    </div>
+    <FormTextArea/>
   );
 }
