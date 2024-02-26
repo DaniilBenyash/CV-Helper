@@ -1,6 +1,7 @@
 export const JAVASCRIPT_LIBRARIES = [
   "Angular",
   "Astro",
+  "Ember.js",
   "Gatsby",
   "JQuery",
   "Lodash",
@@ -11,5 +12,4 @@ export const JAVASCRIPT_LIBRARIES = [
   "React Native",
   "React",
   "ViroReact",
-  "Ember.js",
 ];
