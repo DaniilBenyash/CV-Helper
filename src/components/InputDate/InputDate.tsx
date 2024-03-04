@@ -1,24 +1,15 @@
 import { DatePicker } from "antd";
 import { RangePickerProps } from "antd/es/date-picker";
-import dayjs, { Dayjs } from "dayjs";
+import { Dayjs } from "dayjs";
+import { FC } from "react";
 
 const { RangePicker } = DatePicker;
 
 type InputDateProps = {
   onChange: RangePickerProps["onChange"];
-  lastDate?: Dayjs;
+  value: [Dayjs, Dayjs];
 };
-
-export const dateFormat = "MM-YYYY";
-const currentMonth = dayjs();
-
-export const InputDate = ({ onChange, lastDate = currentMonth }: InputDateProps) => {
-  return (
-    <RangePicker
-      onChange={onChange}
-      picker="month"
-      defaultValue={[dayjs(currentMonth), dayjs(lastDate)]}
-      disabled={[false, true]}
-    />
-  );
+export const dateFormat = "YYYY-MM";
+export const InputDate: FC<InputDateProps> = ({ onChange, value }) => {
+  return <RangePicker onChange={onChange} picker="month" value={value} disabled={[false, true]} />;
 };

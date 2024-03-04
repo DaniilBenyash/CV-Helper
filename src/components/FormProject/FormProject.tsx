@@ -1,34 +1,29 @@
 import { useFormik } from "formik";
 import { InputDate, dateFormat } from "../InputDate";
-import { Input } from "antd";
+import { Flex, Input } from "antd";
 import dayjs from "dayjs";
-import { ChangeEvent } from "react";
+import { ChangeEvent, FC } from "react";
 import { RangePickerProps } from "antd/es/date-picker";
+import { ProjectType } from "../ListFormsProject";
+
 const { TextArea } = Input;
 
-type initialValues = {
-  firstDate: string;
-  lastDate: string;
-  dateRange: number;
-  technologies: string;
+type FormProjectProps = {
+  onSubmit: (project: ProjectType) => void;
+  projectData: ProjectType;
 };
+export const FormProject: FC<FormProjectProps> = ({ onSubmit, projectData }) => {
+  const formik = useFormik<ProjectType>({
+    initialValues: projectData,
 
-export const FormProject = () => {
-  const currentMonth = dayjs().format(dateFormat);
-  const formik = useFormik<initialValues>({
-    initialValues: {
-      firstDate: currentMonth,
-      lastDate: currentMonth,
-      dateRange: 0,
-      technologies: "",
-    },
-    onSubmit: (values: initialValues) => {
-      console.log(values);
+    onSubmit: (project: ProjectType) => {
+      onSubmit(project);
     },
   });
 
   const handleDateRangeChange: RangePickerProps["onChange"] = (_date, dateString) => {
     const [firstDate, lastDate] = dateString;
+    console.log(dateString);
     const dateRange = dayjs(lastDate).diff(firstDate, "month");
     formik.setFieldValue("firstDate", firstDate);
     formik.setFieldValue("lastDate", lastDate);
@@ -43,9 +38,12 @@ export const FormProject = () => {
   };
 
   return (
-    <>
-      <InputDate onChange={handleDateRangeChange} />
+    <Flex gap="middle" vertical>
+      <InputDate
+        onChange={handleDateRangeChange}
+        value={[dayjs(projectData.firstDate, dateFormat), dayjs(projectData.lastDate, dateFormat)]}
+      />
       <TextArea rows={4} onChange={handleTextAreaChange} />
-    </>
+    </Flex>
   );
 };

@@ -1,10 +1,10 @@
 import "./App.css";
-import { FormProject } from "./components/FormProject";
+import { ListFormsProject } from "./components/ListFormsProject/ListFormsProject";
 
 function App() {
   return (
     <>
-      <FormProject />
+      <ListFormsProject />
     </>
   );
 }
