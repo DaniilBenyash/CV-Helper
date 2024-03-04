@@ -1,1 +1,1 @@
-export { InputDate, dateFormat } from './InputDate'
+export { InputDate, dateFormat } from "./InputDate";

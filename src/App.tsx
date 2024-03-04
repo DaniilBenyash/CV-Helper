@@ -1,7 +1,12 @@
-import React from 'react';
-import { FormProject } from './components/FormProject';
-export const App = () => {
+import "./App.css";
+import { FormProject } from "./components/FormProject";
+
+function App() {
   return (
-    <FormProject/>
+    <>
+      <FormProject />
+    </>
   );
 }
+
+export default App;
