@@ -1,4 +1,4 @@
-export type Technology = {
+export type Project = {
   id: number;
   firstDate: string;
   lastDate: string;
@@ -6,7 +6,7 @@ export type Technology = {
   rangeDate: number;
 };
 
-export type Technologies = Technology[];
+export type Projects = Project[];
 
 export type TechnologiesMap = {
   [index: string]: string;
