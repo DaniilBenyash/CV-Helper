@@ -12,7 +12,11 @@ export const getTechnologiesMap = (technologies: TechnologiesNames): Technologie
 
   for (const key in technologies) {
     technologies[key].forEach((technology) => {
-      result[technology] = key.split("_").join(" ");
+      // TODO schould be created a function for making standard string without spaces, commas and dashes
+      result[technology.split("-").join(" ").toLocaleLowerCase()] = key
+        .split("_")
+        .join(" ")
+        .toLocaleLowerCase();
     });
   }
 

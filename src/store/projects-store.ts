@@ -1,10 +1,11 @@
 import { makeAutoObservable } from "mobx";
 import { getTechnologiesMap } from "@/utils/getTechnologiesMap";
 import { TECHNOLOGIES } from "@/constants/technologies";
-import { Projects } from "@/abstraction/store/fields";
+import { Projects, TechnologiesTableData } from "@/abstraction/store/fields";
 import { AddNewProject, SetDate, SetTechnologies } from "@/abstraction/store/methods";
 import { getCurrentMonth } from "@/utils/getCurrentMonth";
 import { normalizeDates } from "@/utils/normalizeDates";
+import { getTableOfTechnologies } from "@/utils/getTableOfTechnologies";
 
 const nextId = 1;
 
@@ -18,6 +19,7 @@ export class ProjectsStore {
   nextId = nextId;
   technologiesMap = getTechnologiesMap(TECHNOLOGIES);
   projects: Projects = intitialState;
+  table: TechnologiesTableData = { notFound: [] };
 
   constructor() {
     makeAutoObservable(this);
@@ -39,23 +41,24 @@ export class ProjectsStore {
     const targetProject = this.projects.find((obj) => obj.id === id);
 
     if (targetProject) {
+      // TODO should check MobX methods for optimizing rerenders
       targetProject.firstDate = dates[0];
       targetProject.lastDate = dates[0];
       targetProject.dateRange = range;
     }
-    console.log(normalizeDates(this.projects));
     this.projects = normalizeDates(this.projects);
-    console.log(this.projects);
+    this.table = getTableOfTechnologies(this.projects, this.technologiesMap);
   };
 
   setTechnologies: SetTechnologies = (id, technologies) => {
     const targetProject = this.projects.find((obj) => obj.id === id);
-    const splitRegex = /,?\s+/;
-    const technologiesArr = technologies.match(splitRegex);
+    const splitRegex = /,\s*/;
+    const technologiesArr = technologies.split(splitRegex);
 
     if (targetProject) {
       targetProject.technologies = technologiesArr ?? [];
     }
+    this.table = getTableOfTechnologies(this.projects, this.technologiesMap);
   };
 }
 
