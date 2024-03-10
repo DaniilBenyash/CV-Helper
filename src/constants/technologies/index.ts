@@ -1,3 +1,4 @@
+import { TechnologiesNames } from "@/abstraction/constants/technologies";
 import { ANALYTICS } from "./analitycs";
 import { ANIMATIONS_LIBRARIES } from "./animation-libraries";
 import { AUTHORIZATION_TOOLS } from "./authorization-tools";
@@ -26,7 +27,7 @@ import { TESTING_FRAMEWORKS_AND_TOOLS } from "./testing-libraries";
 import { UI_LIBRARIES } from "./ui-libraries";
 import { WEB_SERVICES } from "./web-services";
 
-export const TECHNOLOGIES = {
+export const TECHNOLOGIES: TechnologiesNames = {
   MARKDOWN_LANGUAGES,
   PROGRAMMING_LANGUAGES,
   JAVASCRIPT_LIBRARIES,
