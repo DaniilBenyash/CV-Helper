@@ -3,7 +3,7 @@ export type Project = {
   firstDate: string;
   lastDate: string;
   technologies: string[];
-  rangeDate: number;
+  dateRange: number;
 };
 
 export type Projects = Project[];

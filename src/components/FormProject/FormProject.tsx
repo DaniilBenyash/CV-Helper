@@ -1,49 +1,59 @@
 import { useFormik } from "formik";
-import { InputDate, dateFormat } from "../InputDate";
+import { InputDate } from "../InputDate";
 import { Flex, Input } from "antd";
 import dayjs from "dayjs";
 import { ChangeEvent, FC } from "react";
 import { RangePickerProps } from "antd/es/date-picker";
-import { ProjectType } from "../ListFormsProject";
+import { useStores } from "@/store/hooks/root-store-context";
+import { Project } from "@/abstraction/store/fields";
+import { calculateDateRange } from "@/utils/calculateDateRange";
+import { dateFormat } from "@/abstraction/formats";
+import { observer } from "mobx-react-lite";
 
 const { TextArea } = Input;
 
 type FormProjectProps = {
-  onSubmit: (project: ProjectType) => void;
-  projectData: ProjectType;
+  projectData: Project;
 };
-export const FormProject: FC<FormProjectProps> = ({ onSubmit, projectData }) => {
-  const formik = useFormik<ProjectType>({
+export const FormProject: FC<FormProjectProps> = observer(({ projectData }) => {
+  const formik = useFormik<Project>({
     initialValues: projectData,
 
-    onSubmit: (project: ProjectType) => {
-      onSubmit(project);
-    },
+    onSubmit: () => {},
   });
+
+  const {
+    projects: { setDate, setTechnologies },
+  } = useStores();
 
   const handleDateRangeChange: RangePickerProps["onChange"] = (_date, dateString) => {
     const [firstDate, lastDate] = dateString;
     console.log(dateString);
-    const dateRange = dayjs(lastDate).diff(firstDate, "month");
+    const dateRange = calculateDateRange(firstDate, lastDate);
     formik.setFieldValue("firstDate", firstDate);
     formik.setFieldValue("lastDate", lastDate);
     formik.setFieldValue("dateRange", dateRange);
-    formik.handleSubmit();
+
+    setDate(projectData.id, dateString, dateRange);
   };
 
   const handleTextAreaChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const technologies = event.target.value;
     formik.setFieldValue("technologies", technologies);
-    formik.handleSubmit();
+    setTechnologies(projectData.id, technologies);
   };
 
   return (
-    <Flex gap="middle" vertical>
+    <Flex gap="middle" vertical align="start">
       <InputDate
         onChange={handleDateRangeChange}
         value={[dayjs(projectData.firstDate, dateFormat), dayjs(projectData.lastDate, dateFormat)]}
       />
-      <TextArea rows={4} onChange={handleTextAreaChange} />
+      <TextArea
+        rows={4}
+        value={projectData.technologies.toString()}
+        onChange={handleTextAreaChange}
+      />
     </Flex>
   );
-};
+});

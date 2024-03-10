@@ -9,7 +9,7 @@ type InputDateProps = {
   onChange: RangePickerProps["onChange"];
   value: [Dayjs, Dayjs];
 };
-export const dateFormat = "YYYY-MM";
+
 export const InputDate: FC<InputDateProps> = ({ onChange, value }) => {
   return <RangePicker onChange={onChange} picker="month" value={value} disabled={[false, true]} />;
 };
