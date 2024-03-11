@@ -1,4 +1,5 @@
 import { Projects, TechnologiesMap, TechnologiesTableData } from "@/abstraction/store/fields";
+import { normalizeString } from "./normalizeString";
 
 // TODO should rewrite this function for making it more undestandable
 export const getTableOfTechnologies = (
@@ -10,12 +11,12 @@ export const getTableOfTechnologies = (
   projects.forEach((project) => {
     project.technologies.forEach((tech) => {
       // TODO schould be created a function for making standard string without spaces, commas and dashes
-      const techName = tech.toLocaleLowerCase().split("-").join(" ");
+      const techName = normalizeString(tech);
       const section = map[techName];
 
       if (!section) {
         const technology = resultObj.notFound.find(
-          (item) => item.name.toLocaleLowerCase() === techName,
+          (item) => normalizeString(item.name) === techName,
         );
         if (technology) {
           technology.range += project.dateRange;
@@ -31,14 +32,16 @@ export const getTableOfTechnologies = (
       const sectionInResult = resultObj[section];
 
       if (sectionInResult) {
-        const technologyInSection = sectionInResult.find((item) => item.name === techName);
+        const technologyInSection = sectionInResult.find(
+          (item) => normalizeString(item.name) === techName,
+        );
 
         if (technologyInSection) {
           technologyInSection.range += project.dateRange;
         }
         if (!technologyInSection) {
           sectionInResult.push({
-            name: techName,
+            name: tech,
             range: project.dateRange,
             lastUsed: project.lastDate.slice(0, 4),
           });

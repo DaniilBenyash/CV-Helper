@@ -10,4 +10,6 @@ export const UI_LIBRARIES = [
   "Bootstrap",
   "Less",
   "Semantic UI",
+  "Chakra UI",
+  "Ant-Design",
 ];

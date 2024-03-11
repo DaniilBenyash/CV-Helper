@@ -1,5 +1,6 @@
 import { TechnologiesNames } from "@/abstraction/constants/technologies";
 import { TechnologiesMap } from "@/abstraction/store/fields";
+import { normalizeString } from "./normalizeString";
 
 /**
  * Function for transformation Technologies object to TechnologiesMap object where key is technology name and value is name of technologie section
@@ -13,10 +14,8 @@ export const getTechnologiesMap = (technologies: TechnologiesNames): Technologie
   for (const key in technologies) {
     technologies[key].forEach((technology) => {
       // TODO schould be created a function for making standard string without spaces, commas and dashes
-      result[technology.split("-").join(" ").toLocaleLowerCase()] = key
-        .split("_")
-        .join(" ")
-        .toLocaleLowerCase();
+      const normalizedTechnologyName = normalizeString(technology);
+      result[normalizedTechnologyName] = key.split("_").join(" ").toLocaleLowerCase();
     });
   }
 
