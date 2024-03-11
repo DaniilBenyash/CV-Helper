@@ -1,1 +1,1 @@
-export const CLOUD = ["GCP", "Firebase", "Azure"];
+export const CLOUD = ["GCP", "Firebase", "Azure", "Keycloak Cloud", "Keycloak"];
