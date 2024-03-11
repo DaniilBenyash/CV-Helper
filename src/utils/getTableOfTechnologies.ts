@@ -20,13 +20,15 @@ export const getTableOfTechnologies = (
         );
         if (technology) {
           technology.range += project.dateRange;
-        } else {
+        }
+        if (!technology) {
           resultObj.notFound.push({
             name: tech,
             range: project.dateRange,
             lastUsed: project.lastDate.slice(0, 4),
           });
         }
+        return;
       }
 
       const sectionInResult = resultObj[section];
@@ -50,7 +52,7 @@ export const getTableOfTechnologies = (
 
       if (!sectionInResult) {
         resultObj[section] = [
-          { name: techName, range: project.dateRange, lastUsed: project.lastDate.slice(0, 4) },
+          { name: tech, range: project.dateRange, lastUsed: project.lastDate.slice(0, 4) },
         ];
       }
     });

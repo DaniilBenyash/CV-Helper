@@ -12,4 +12,6 @@ export const JAVASCRIPT_LIBRARIES = [
   "React Native",
   "React",
   "ViroReact",
+  "plyr",
+  "Video.js",
 ];

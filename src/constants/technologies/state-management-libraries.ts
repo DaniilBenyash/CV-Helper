@@ -5,4 +5,5 @@ export const STATE_MANAGEMENT_LIBRARIES = [
   "Redux Saga",
   "Redux Persist",
   "MobX",
+  "zustand",
 ];
