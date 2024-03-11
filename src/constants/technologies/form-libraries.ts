@@ -4,4 +4,5 @@ export const FORM_LIBRARIES = [
   "Yup",
   "React-redux-form",
   "Redux-final-form",
+  "React-final-form",
 ];

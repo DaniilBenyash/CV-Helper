@@ -11,4 +11,5 @@ export const TESTING_FRAMEWORKS_AND_TOOLS = [
   "Storybook",
   "TestFlight",
   "Vitest",
+  "Cypress",
 ];

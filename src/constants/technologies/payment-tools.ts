@@ -1,1 +1,1 @@
-export const PAYMENT_TOOLS = ["Plaid SDK", "Crypto SDK", "PayPal SDK"];
+export const PAYMENT_TOOLS = ["Plaid SDK", "Crypto SDK", "PayPal SDK", "BrainTree"];

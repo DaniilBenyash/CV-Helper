@@ -15,7 +15,7 @@ export const getTechnologiesMap = (technologies: TechnologiesNames): Technologie
     technologies[key].forEach((technology) => {
       // TODO schould be created a function for making standard string without spaces, commas and dashes
       const normalizedTechnologyName = normalizeString(technology);
-      result[normalizedTechnologyName] = key.split("_").join(" ").toLocaleLowerCase();
+      result[normalizedTechnologyName] = key.split("_").join(" ").toLowerCase();
     });
   }
 

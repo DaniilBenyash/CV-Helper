@@ -26,6 +26,8 @@ import { STATE_MANAGEMENT_LIBRARIES } from "./state-management-libraries";
 import { TESTING_FRAMEWORKS_AND_TOOLS } from "./testing-libraries";
 import { UI_LIBRARIES } from "./ui-libraries";
 import { WEB_SERVICES } from "./web-services";
+import { SPEECH_RECOGNITION } from "./speech-recognition";
+import { DOCUMENTATION } from "./documentation";
 
 export const TECHNOLOGIES: TechnologiesNames = {
   MARKDOWN_LANGUAGES,
@@ -55,4 +57,6 @@ export const TECHNOLOGIES: TechnologiesNames = {
   ANALYTICS,
   PHP_FRAMEWORKS,
   SECURITY,
+  SPEECH_RECOGNITION,
+  DOCUMENTATION,
 };
