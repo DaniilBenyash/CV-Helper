@@ -19,7 +19,7 @@ export class ProjectsStore {
   nextId = nextId;
   technologiesMap = getTechnologiesMap(TECHNOLOGIES);
   projects: Projects = intitialState;
-  table: TechnologiesTableData = { notFound: [] };
+  table: TechnologiesTableData = {};
 
   constructor() {
     makeAutoObservable(this);

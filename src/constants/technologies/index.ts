@@ -28,6 +28,7 @@ import { UI_LIBRARIES } from "./ui-libraries";
 import { WEB_SERVICES } from "./web-services";
 import { SPEECH_RECOGNITION } from "./speech-recognition";
 import { DOCUMENTATION } from "./documentation";
+import { WEB_3 } from "./web3";
 
 export const TECHNOLOGIES: TechnologiesNames = {
   MARKDOWN_LANGUAGES,
@@ -59,4 +60,5 @@ export const TECHNOLOGIES: TechnologiesNames = {
   SECURITY,
   SPEECH_RECOGNITION,
   DOCUMENTATION,
+  WEB_3,
 };

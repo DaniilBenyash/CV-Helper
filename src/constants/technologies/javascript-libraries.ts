@@ -14,4 +14,8 @@ export const JAVASCRIPT_LIBRARIES = [
   "ViroReact",
   "plyr",
   "Video.js",
+  "Swipper",
+  "Vue",
+  "Electron",
+  "Date-fns",
 ];
