@@ -9,4 +9,5 @@ export const FETCHING_LIBRARIES = [
   "Apollo GraphQL",
   "Apollo Client",
   "React Native WebSocket",
+  "TanStack Query",
 ];

@@ -12,4 +12,5 @@ export const TESTING_FRAMEWORKS_AND_TOOLS = [
   "TestFlight",
   "Vitest",
   "Cypress",
+  "Sentry",
 ];

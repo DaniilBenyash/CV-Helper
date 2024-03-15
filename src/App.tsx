@@ -1,17 +1,12 @@
-import { Flex } from "antd";
 import "./App.css";
-import { ListFormsProject } from "./components/ListFormsProject/ListFormsProject";
-import { Table } from "./components/Table";
 import { RootStoreContext } from "./store/hooks/root-store-context";
 import { rootStore } from "./store/root-store";
+import { MainPage } from "./modules/MainPage";
 
 function App() {
   return (
     <RootStoreContext.Provider value={rootStore}>
-      <Flex gap={100} justify="center">
-        <ListFormsProject />
-        <Table />
-      </Flex>
+      <MainPage />
     </RootStoreContext.Provider>
   );
 }

@@ -6,4 +6,5 @@ export const STATE_MANAGEMENT_LIBRARIES = [
   "Redux Persist",
   "MobX",
   "zustand",
+  "Context API",
 ];

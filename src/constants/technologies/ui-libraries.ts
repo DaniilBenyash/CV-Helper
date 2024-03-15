@@ -13,4 +13,6 @@ export const UI_LIBRARIES = [
   "Chakra UI",
   "Ant-Design",
   "React-table",
+  "Tailwind",
+  "Devextreme React",
 ];
