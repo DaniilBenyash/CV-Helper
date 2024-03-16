@@ -1,4 +1,4 @@
-import { TechnologiesNames } from "@/abstraction/constants/technologies";
+import { SectionsSortingWeights, TechnologiesNames } from "@/abstraction/constants/technologies";
 import { ANALYTICS } from "./analitycs";
 import { ANIMATIONS_LIBRARIES } from "./animation-libraries";
 import { AUTHORIZATION_TOOLS } from "./authorization-tools";
@@ -29,36 +29,46 @@ import { WEB_SERVICES } from "./web-services";
 import { SPEECH_RECOGNITION } from "./speech-recognition";
 import { DOCUMENTATION } from "./documentation";
 import { WEB_3 } from "./web3";
+import { normalizeString } from "@/utils/normalizeString";
 
 export const TECHNOLOGIES: TechnologiesNames = {
   MARKDOWN_LANGUAGES,
   PROGRAMMING_LANGUAGES,
   JAVASCRIPT_LIBRARIES,
   MOBILE_FRAMEWORKS,
+  PHP_FRAMEWORKS,
   REACT_NATIVE_LIBRARIES,
   STATE_MANAGEMENT_LIBRARIES,
   FORM_LIBRARIES,
   FETCHING_LIBRARIES,
+  UI_LIBRARIES,
   DATA_VISUALIZATION,
   ANIMATIONS_LIBRARIES,
+  TESTING_FRAMEWORKS_AND_TOOLS,
   INTERNATIONALIZATION,
   MAPS,
-  CLOUD,
-  UI_LIBRARIES,
-  DATABASES,
-  TESTING_FRAMEWORKS_AND_TOOLS,
   BACKEND_TECHNOLOGIES,
-  CI_CD,
+  CLOUD,
+  DATABASES,
+  CMS,
   PAYMENT_TOOLS,
-  MODULE_BUMDLERS,
   WEB_SERVICES,
   AUTHORIZATION_TOOLS,
   CONTAINERIZATION,
-  CMS,
+  WEB_3,
   ANALYTICS,
-  PHP_FRAMEWORKS,
   SECURITY,
+  CI_CD,
   SPEECH_RECOGNITION,
   DOCUMENTATION,
-  WEB_3,
+  MODULE_BUMDLERS,
 };
+
+export const SECTIONS_SORTING_WEIGHTS = Object.keys(TECHNOLOGIES).reduce(
+  (acc: SectionsSortingWeights, item, index) => {
+    const normalizedKey = normalizeString(item);
+    acc[normalizedKey] = index;
+    return acc;
+  },
+  {},
+);

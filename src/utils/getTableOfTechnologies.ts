@@ -1,7 +1,23 @@
 import { Projects, TechnologiesMap, TechnologiesTableData } from "@/abstraction/store/fields";
 import { normalizeString } from "./normalizeString";
+import { SECTIONS_SORTING_WEIGHTS } from "@/constants/technologies";
 
-// TODO should rewrite this function for making it more undestandable
+const sortTableOfTechnologies = (obj: TechnologiesTableData): TechnologiesTableData => {
+  const resultObjectArray = Object.entries(obj);
+
+  const sortedResultObjectArray = resultObjectArray.sort((a, b) => {
+    const normalizedKeyForComparisonA = normalizeString(a[0]);
+    const normalizedKeyForComparisonB = normalizeString(b[0]);
+    return (
+      SECTIONS_SORTING_WEIGHTS[normalizedKeyForComparisonA] -
+      SECTIONS_SORTING_WEIGHTS[normalizedKeyForComparisonB]
+    );
+  });
+  const sortedResultObject = Object.fromEntries(sortedResultObjectArray);
+
+  return sortedResultObject;
+};
+
 export const getTableOfTechnologies = (
   projects: Projects,
   map: TechnologiesMap,
@@ -10,7 +26,6 @@ export const getTableOfTechnologies = (
 
   projects.forEach((project) => {
     project.technologies.forEach((tech) => {
-      // TODO schould be created a function for making standard string without spaces, commas and dashes
       const techName = normalizeString(tech);
       const section = map[techName] || "notFound";
 
@@ -32,5 +47,5 @@ export const getTableOfTechnologies = (
     });
   });
 
-  return resultObj;
+  return sortTableOfTechnologies(resultObj);
 };

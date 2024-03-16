@@ -10,7 +10,7 @@ export const Table = observer(() => {
     projects: { table },
   } = useStores();
   return (
-    <Flex vertical gap="middle" align="stretch" style={{ width: "1000px" }}>
+    <Flex vertical gap="small" align="stretch" style={{ width: "70%" }}>
       <Title level={3}>Professional skills</Title>
       <TechnologiesTable tableObj={table} />
     </Flex>
