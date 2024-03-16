@@ -37,13 +37,12 @@ export class ProjectsStore {
     this.nextId = this.nextId + 1;
   };
 
-  setDate: SetDate = (id, dates, range) => {
+  setDate: SetDate = (id, firstDate, range) => {
     const targetProject = this.projects.find((obj) => obj.id === id);
 
     if (targetProject) {
       // TODO should check MobX methods for optimizing rerenders
-      targetProject.firstDate = dates[0];
-      targetProject.lastDate = dates[0];
+      targetProject.firstDate = firstDate;
       targetProject.dateRange = range;
     }
     this.projects = normalizeDates(this.projects);

@@ -1,6 +1,7 @@
 import { FC } from "react";
 import { TechnologiesTableData } from "@/abstraction/store/fields";
 import { convertMonthsToYears } from "@/utils/convertMonthsToYears";
+import { capitalize } from "@/utils/capitalize";
 
 type Props = {
   tableObj: TechnologiesTableData;
@@ -12,7 +13,7 @@ export const TechnologiesTable: FC<Props> = ({ tableObj }) => {
   return (
     <table style={{ height: "min-content", width: "100%" }}>
       {sections.map((section) => (
-        <tr>
+        <tr key={section}>
           <td
             style={{
               color: "#c63031",
@@ -25,7 +26,7 @@ export const TechnologiesTable: FC<Props> = ({ tableObj }) => {
               width: "15%",
             }}
           >
-            {section}
+            {capitalize(section)}
           </td>
           <td
             style={{
@@ -38,7 +39,9 @@ export const TechnologiesTable: FC<Props> = ({ tableObj }) => {
             }}
           >
             {tableObj[section].map((item) => (
-              <p style={{ margin: "14px 20px", color: "#353535" }}>{item.name}</p>
+              <p key={item.name} style={{ margin: "14px 20px", color: "#353535" }}>
+                {item.name}
+              </p>
             ))}
           </td>
           <td

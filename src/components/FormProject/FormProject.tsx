@@ -22,8 +22,7 @@ export const FormProject: FC<FormProjectProps> = observer(({ projectData }) => {
   const handleDateRangeChange: RangePickerProps["onChange"] = (_date, dateString) => {
     const [firstDate, lastDate] = dateString;
     const dateRange = calculateDateRange(firstDate, lastDate);
-
-    setDate(projectData.id, dateString, dateRange);
+    setDate(projectData.id, firstDate, dateRange);
   };
 
   const handleTextAreaChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {

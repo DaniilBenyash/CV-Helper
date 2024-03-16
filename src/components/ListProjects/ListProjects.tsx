@@ -12,7 +12,7 @@ export const ListProjects = observer(() => {
   } = useStores();
 
   return (
-    <Flex gap="middle" vertical>
+    <Flex gap="middle" vertical style={{ width: "30%" }}>
       <Title level={3}>Projects</Title>
       {projects.map((project) => {
         return <FormProject key={project.id} projectData={project} />;
