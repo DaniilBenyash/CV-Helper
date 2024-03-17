@@ -1,5 +1,6 @@
 export const UI_LIBRARIES = [
-  "css3",
+  "CSS3",
+  "CSS",
   "Styled-components",
   "React Native Elements",
   "React Native Paper",
@@ -12,7 +13,11 @@ export const UI_LIBRARIES = [
   "Semantic UI",
   "Chakra UI",
   "Ant-Design",
+  "Antd",
   "React-table",
   "Tailwind",
   "Devextreme React",
+  "React Native Web",
+  "CSS Modules",
+  "SCSS Modules",
 ];

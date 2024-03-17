@@ -13,4 +13,5 @@ export const TESTING_FRAMEWORKS_AND_TOOLS = [
   "Vitest",
   "Cypress",
   "Sentry",
+  "Playwright",
 ];

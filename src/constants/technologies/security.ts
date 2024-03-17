@@ -1,1 +1,1 @@
-export const SECURITY = ["OAuth2", "BankID"];
+export const SECURITY = ["OAuth2", "BankID", "Crypto.js"];

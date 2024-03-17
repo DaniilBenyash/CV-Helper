@@ -6,4 +6,5 @@ export const DATABASES = [
   "MySQL",
   "PostgreSQL",
   "Mongoose",
+  "SQLite Database",
 ];
