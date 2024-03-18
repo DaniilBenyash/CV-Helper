@@ -2,7 +2,7 @@ import { makeAutoObservable } from "mobx";
 import { getTechnologiesMap } from "@/utils/getTechnologiesMap";
 import { TECHNOLOGIES } from "@/constants/technologies";
 import { Projects, TechnologiesTableData } from "@/abstraction/store/fields";
-import { AddNewProject, SetDate, SetTechnologies } from "@/abstraction/store/methods";
+import { AddEmptyProject, AddProject, SetDate, SetTechnologies } from "@/abstraction/store/methods";
 import { getCurrentMonth } from "@/utils/getCurrentMonth";
 import { normalizeDates } from "@/utils/normalizeDates";
 import { getTableOfTechnologies } from "@/utils/getTableOfTechnologies";
@@ -25,11 +25,20 @@ export class ProjectsStore {
     makeAutoObservable(this);
   }
 
-  addNewProject: AddNewProject = () => {
+  clearProjects = () => {
+    this.projects = [];
+    this.table = {};
+    this.nextId = 0;
+  };
+
+  addEmptyProject: AddEmptyProject = () => {
+    const firstDate = this.projects[this.nextId - 1]?.firstDate ?? getCurrentMonth();
+    const lastDate = this.projects[this.nextId - 1]?.firstDate ?? getCurrentMonth();
+
     this.projects.push({
       id: this.nextId,
-      firstDate: this.projects[this.nextId - 1].firstDate,
-      lastDate: this.projects[this.nextId - 1].firstDate,
+      firstDate,
+      lastDate,
       dateRange: 0,
       technologies: [],
     });
@@ -37,11 +46,21 @@ export class ProjectsStore {
     this.nextId = this.nextId + 1;
   };
 
+  addProject: AddProject = (project) => {
+    this.projects.push({
+      ...project,
+      id: this.nextId,
+    });
+
+    this.nextId = this.nextId + 1;
+    this.projects = normalizeDates(this.projects);
+    this.table = getTableOfTechnologies(this.projects, this.technologiesMap);
+  };
+
   setDate: SetDate = (id, firstDate, range) => {
     const targetProject = this.projects.find((obj) => obj.id === id);
 
     if (targetProject) {
-      // TODO should check MobX methods for optimizing rerenders
       targetProject.firstDate = firstDate;
       targetProject.dateRange = range;
     }

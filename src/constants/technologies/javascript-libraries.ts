@@ -18,4 +18,7 @@ export const JAVASCRIPT_LIBRARIES = [
   "Vue",
   "Electron",
   "Date-fns",
+  "Three.js",
+  "Stripe.js",
+  "WebView",
 ];

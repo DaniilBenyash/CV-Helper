@@ -1,1 +1,1 @@
-export const DOCUMENTATION = ["Redoc"];
+export const DOCUMENTATION = ["Redoc", "Chromatic"];

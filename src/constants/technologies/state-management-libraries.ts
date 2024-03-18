@@ -7,4 +7,5 @@ export const STATE_MANAGEMENT_LIBRARIES = [
   "MobX",
   "zustand",
   "Context API",
+  "Reselect",
 ];

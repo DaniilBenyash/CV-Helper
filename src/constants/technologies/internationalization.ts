@@ -1,1 +1,1 @@
-export const INTERNATIONALIZATION = ["i18next"];
+export const INTERNATIONALIZATION = ["i18next", "i18n", "Format.js"];

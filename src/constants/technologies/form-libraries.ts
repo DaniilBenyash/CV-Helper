@@ -6,4 +6,5 @@ export const FORM_LIBRARIES = [
   "Redux-final-form",
   "React-final-form",
   "Zod",
+  "Redux Form",
 ];

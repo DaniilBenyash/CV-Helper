@@ -8,7 +8,7 @@ const { Title } = Typography;
 // TODO should make this component more designable
 export const ListProjects = observer(() => {
   const {
-    projects: { projects, addNewProject },
+    projects: { projects, addEmptyProject },
   } = useStores();
 
   return (
@@ -17,7 +17,7 @@ export const ListProjects = observer(() => {
       {projects.map((project) => {
         return <FormProject key={project.id} projectData={project} />;
       })}
-      <Button onClick={addNewProject}>Add project</Button>
+      <Button onClick={addEmptyProject}>Add project</Button>
     </Flex>
   );
 });
