@@ -30,7 +30,7 @@ export const findDatesAndTechnologies = (htmlStr: string) => {
     const regP = /(?:<p>|<\/p>)/gm;
     const splitted = item.split(regP);
     // search needed string by unique date appearance marker 20
-    const dates = splitted.filter((str) => str.includes("20"));
+    const dates = splitted.filter((str) => str.includes(".20"));
 
     return dates.map((item) => {
       const firstDate = convertDate(item.slice(0, 7));
