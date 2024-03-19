@@ -12,7 +12,7 @@ export type TechnologiesMap = {
   [index: string]: string;
 };
 
-type Technology = {
+export type Technology = {
   name: string;
   range: number;
   lastUsed: string;
