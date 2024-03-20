@@ -8,7 +8,6 @@ import { useStores } from "@/store/hooks/root-store-context";
 import { Technology } from "@/abstraction/store/fields";
 import { observer } from "mobx-react-lite";
 import { getDataForDocumentGenerating } from "./utils";
-import { convertMonthsToYears } from "@/utils/convertMonthsToYears";
 
 function loadFile(url: string, callback: (err: Error, data: string) => void) {
   PizZipUtils.getBinaryContent(url, callback);
@@ -22,7 +21,7 @@ export const GenerateDocumentButton = observer(() => {
   const generateDocument = () => {
     const dataForGenerating = getDataForDocumentGenerating(table);
 
-    loadFile("/tableTemplate.docx", function (error: Error, content: LoadData) {
+    loadFile("/gen.docx", function (error: Error, content: LoadData) {
       if (error) {
         throw error;
       }
@@ -35,21 +34,36 @@ export const GenerateDocumentButton = observer(() => {
       });
       doc.render({
         getNames: (scope: { technologies: Technology[] }) =>
-          scope.technologies.reduce((acc, item) => acc + item.name + "\n", ""),
+          scope.technologies.reduce((acc, item, index, array) => {
+            if (index === array.length - 1) {
+              return acc + item.name;
+            }
+            return acc + item.name + "\n";
+          }, ""),
+
         getRanges: (scope: { technologies: Technology[] }) =>
-          scope.technologies.reduce(
-            (acc, item) => acc + convertMonthsToYears(item.range) + "\n",
-            "",
-          ),
+          scope.technologies.reduce((acc, item, index, array) => {
+            if (index === array.length - 1) {
+              return acc + Math.ceil(item.range / 12);
+            }
+            return acc + Math.ceil(item.range / 12) + "\n";
+          }, ""),
+
         getLastUsed: (scope: { technologies: Technology[] }) =>
-          scope.technologies.reduce((acc, item) => acc + item.lastUsed + "\n", ""),
+          scope.technologies.reduce((acc, item, index, array) => {
+            if (index === array.length - 1) {
+              return acc + item.lastUsed;
+            }
+            return acc + item.lastUsed + "\n";
+          }, ""),
+
         ...dataForGenerating,
       });
       const out = doc.getZip().generate({
         type: "blob",
         mimeType: "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
       }); //Output the document using Data-URI
-      saveAs(out, "cv.docx");
+      saveAs(out, "cv-table.docx");
     });
   };
   return <Button onClick={generateDocument}>Generate</Button>;

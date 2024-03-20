@@ -1,1 +1,9 @@
-export const PROGRAMMING_LANGUAGES = ["JavaScript", "TypeScript", "Swift", "Kotlin", "DART", "PHP"];
+export const PROGRAMMING_LANGUAGES = [
+  "JavaScript",
+  "TypeScript",
+  "Swift",
+  "Kotlin",
+  "DART",
+  "PHP",
+  "Python",
+];

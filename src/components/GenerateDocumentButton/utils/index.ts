@@ -16,3 +16,21 @@ export const getDataForDocumentGenerating = (table: TechnologiesTableData) => {
     { sections: [] },
   );
 };
+
+// TODO must be used in docxtemplater doc.render
+export const generateStringWithLinebreaks = (
+  arr: Technology[],
+  fieldName: keyof Technology,
+  customConversionCallback?: (str: string | number) => string,
+): string => {
+  return arr.reduce((acc, item, index, array) => {
+    const value = customConversionCallback
+      ? customConversionCallback(item[fieldName])
+      : item[fieldName];
+
+    if (index === array.length - 1) {
+      return acc + value;
+    }
+    return acc + value + "\n";
+  }, "");
+};
