@@ -16,10 +16,17 @@ export const findDatesAndTechnologies = (htmlStr: string) => {
   // take string with technologies
   const arrWithTechnologies = arrTech.map((item) => {
     // separate each item by <p> or </p>
-    const regP = /(?:<p>|<\/p>)/gm;
+    const regP = /<\/?[^>]+>/gm;
     const splitted = item.split(regP);
+    const threeCommasRegExp = /(?:.*,){3}/gm;
     // return an array item with technologies string
-    return splitted[splitted.length - 2];
+    return splitted.findLast(
+      (item) =>
+        normalizeString(item).includes("javascript") ||
+        normalizeString(item).includes("typescript") ||
+        normalizeString(item).includes("html") ||
+        threeCommasRegExp.test(item),
+    ) as string;
   });
 
   // take only items with 'Project roles' appearance
@@ -27,7 +34,7 @@ export const findDatesAndTechnologies = (htmlStr: string) => {
   // make array witch subarrays. Subarray has two values [firstDate, lastDate]
   const arrWithDates = arrDates.map((item) => {
     // separate each item by <p> or </p>
-    const regP = /(?:<p>|<\/p>)/gm;
+    const regP = /<\/?[^>]+>/gm;
     const splitted = item.split(regP);
     // search needed string by unique date appearance marker 20
     const dates = splitted.filter((str) => str.includes(".20"));
