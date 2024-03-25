@@ -7,7 +7,8 @@ import { Button } from "antd";
 import { useStores } from "@/store/hooks/root-store-context";
 import { Technology } from "@/abstraction/store/fields";
 import { observer } from "mobx-react-lite";
-import { getDataForDocumentGenerating } from "./utils";
+import { generateStringWithLinebreaks, getDataForDocumentGenerating } from "./utils";
+import { convertMonthsToYears } from "@/utils/convertMonthsToYears";
 
 function loadFile(url: string, callback: (err: Error, data: string) => void) {
   PizZipUtils.getBinaryContent(url, callback);
@@ -34,29 +35,15 @@ export const GenerateDocumentButton = observer(() => {
       });
       doc.render({
         getNames: (scope: { technologies: Technology[] }) =>
-          scope.technologies.reduce((acc, item, index, array) => {
-            if (index === array.length - 1) {
-              return acc + item.name;
-            }
-            return acc + item.name + "\n";
-          }, ""),
-
+          generateStringWithLinebreaks<Technology>(scope.technologies, "name"),
         getRanges: (scope: { technologies: Technology[] }) =>
-          scope.technologies.reduce((acc, item, index, array) => {
-            if (index === array.length - 1) {
-              return acc + Math.ceil(item.range / 12);
-            }
-            return acc + Math.ceil(item.range / 12) + "\n";
-          }, ""),
-
+          generateStringWithLinebreaks<Technology>(
+            scope.technologies,
+            "range",
+            convertMonthsToYears,
+          ),
         getLastUsed: (scope: { technologies: Technology[] }) =>
-          scope.technologies.reduce((acc, item, index, array) => {
-            if (index === array.length - 1) {
-              return acc + item.lastUsed;
-            }
-            return acc + item.lastUsed + "\n";
-          }, ""),
-
+          generateStringWithLinebreaks<Technology>(scope.technologies, "lastUsed"),
         ...dataForGenerating,
       });
       const out = doc.getZip().generate({

@@ -1,11 +1,12 @@
 import { makeAutoObservable } from "mobx";
 import { getTechnologiesMap } from "@/utils/getTechnologiesMap";
 import { TECHNOLOGIES } from "@/constants/technologies";
-import { Projects, TechnologiesTableData } from "@/abstraction/store/fields";
-import { AddEmptyProject, AddProject, SetDate, SetTechnologies } from "@/abstraction/store/methods";
+import { Projects } from "@/abstraction/store/fields";
+import { AddProject, SetDate, SetTechnologies } from "@/abstraction/store/methods";
 import { getCurrentMonth } from "@/utils/getCurrentMonth";
 import { normalizeDates } from "@/utils/normalizeDates";
 import { getTableOfTechnologies } from "@/utils/getTableOfTechnologies";
+import { AbstractProjectsStore } from "@/abstraction/store";
 
 const nextId = 1;
 
@@ -15,13 +16,14 @@ const intitialState: Projects = [
   { id: 0, firstDate: currentMonth, lastDate: currentMonth, dateRange: 0, technologies: [] },
 ];
 
-export class ProjectsStore {
+export class ProjectsStore extends AbstractProjectsStore {
   nextId = nextId;
   technologiesMap = getTechnologiesMap(TECHNOLOGIES);
-  projects: Projects = intitialState;
-  table: TechnologiesTableData = {};
+  projects = intitialState;
+  table = {};
 
   constructor() {
+    super();
     makeAutoObservable(this);
   }
 
@@ -31,7 +33,7 @@ export class ProjectsStore {
     this.nextId = 0;
   };
 
-  addEmptyProject: AddEmptyProject = () => {
+  addEmptyProject = () => {
     const firstDate = this.projects[this.nextId - 1]?.firstDate ?? getCurrentMonth();
     const lastDate = this.projects[this.nextId - 1]?.firstDate ?? getCurrentMonth();
 
