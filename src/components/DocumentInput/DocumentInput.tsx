@@ -3,7 +3,7 @@ import { calculateDateRange } from "@/utils/calculateDateRange";
 import mammoth from "mammoth";
 import { observer } from "mobx-react-lite";
 import { ChangeEventHandler } from "react";
-import { findDatesAndTechnologies } from "./utils/findDatesAndTechnologies";
+import { findDatesAndTechnologies } from "./utils";
 
 export const DocumentInput = observer(() => {
   const {
