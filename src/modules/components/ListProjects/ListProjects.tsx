@@ -1,6 +1,6 @@
 import { Button, Flex, Typography } from "antd";
-import { FormProject } from "../FormProject";
-import { useStores } from "@/store/hooks/root-store-context";
+import { FormProject } from "@/components/FormProject";
+import { useStore } from "@/app/store";
 import { observer } from "mobx-react-lite";
 
 const { Title } = Typography;
@@ -9,7 +9,7 @@ const { Title } = Typography;
 export const ListProjects = observer(() => {
   const {
     projects: { projects, addEmptyProject },
-  } = useStores();
+  } = useStore();
 
   return (
     <Flex gap="middle" vertical style={{ width: "30%" }}>

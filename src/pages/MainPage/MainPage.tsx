@@ -1,9 +1,10 @@
 import { DocumentInput } from "@/components/DocumentInput";
 import { Flex } from "./styles";
-import { ListProjects } from "@/components/ListProjects/ListProjects";
-import { Table } from "@/components/Table/Table";
+import { ListProjects } from "@/modules/components/ListProjects";
+import { TableSection } from "@/modules/components/TableSection";
 import { ReloadPageButton } from "@/components/ReloadPageButton";
 import { GenerateDocumentButton } from "@/components/GenerateDocumentButton";
+import { SummarizingField } from "@/modules/components/SummarizingField";
 
 export const MainPage = () => {
   return (
@@ -15,7 +16,8 @@ export const MainPage = () => {
       </Flex>
       <Flex gap={100} justify="start">
         <ListProjects />
-        <Table />
+        <TableSection />
+        <SummarizingField />
       </Flex>
     </>
   );

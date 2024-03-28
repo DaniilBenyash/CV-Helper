@@ -1,18 +1,27 @@
-import { observer } from "mobx-react-lite";
-import { TechnologiesTable } from "../TechnologiesTable/TechnologiesTable";
-import { useStores } from "@/store/hooks/root-store-context";
-import { Flex, Typography } from "antd";
+import { FC } from "react";
+import { TechnologiesTableData } from "@/abstraction/store/fields";
+import { capitalize } from "@/utils/capitalize";
+import { TdSection } from "./components/TdSection";
+import { TdTechnologyName } from "./components/TdTechnologyName";
+import { TdRangeAndLastUsed } from "./components/TdRangeAndLastUsed";
 
-const { Title } = Typography;
-// TODO should replace this component to related folder with smart components
-export const Table = observer(() => {
-  const {
-    projects: { table },
-  } = useStores();
+type Props = {
+  technologies: TechnologiesTableData;
+};
+
+export const Table: FC<Props> = ({ technologies }) => {
+  const sections = Object.keys(technologies);
   return (
-    <Flex vertical gap="small" align="stretch" style={{ width: "70%" }}>
-      <Title level={3}>Professional skills</Title>
-      <TechnologiesTable tableObj={table} />
-    </Flex>
+    <table>
+      <tbody>
+        {sections.map((section) => (
+          <tr key={section}>
+            <TdSection name={capitalize(section)} />
+            <TdTechnologyName technologies={technologies[section]} />
+            <TdRangeAndLastUsed technologies={technologies[section]} />
+          </tr>
+        ))}
+      </tbody>
+    </table>
   );
-});
+};

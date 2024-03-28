@@ -4,7 +4,7 @@ import PizZipUtils from "pizzip/utils/index.js";
 import { saveAs } from "file-saver";
 import expressionParser from "docxtemplater/expressions";
 import { Button } from "antd";
-import { useStores } from "@/store/hooks/root-store-context";
+import { useStore } from "@/app/store";
 import { Technology } from "@/abstraction/store/fields";
 import { observer } from "mobx-react-lite";
 import { generateStringWithLinebreaks, getDataForDocumentGenerating } from "./utils";
@@ -17,7 +17,7 @@ function loadFile(url: string, callback: (err: Error, data: string) => void) {
 export const GenerateDocumentButton = observer(() => {
   const {
     projects: { table },
-  } = useStores();
+  } = useStore();
 
   const generateDocument = () => {
     const dataForGenerating = getDataForDocumentGenerating(table);

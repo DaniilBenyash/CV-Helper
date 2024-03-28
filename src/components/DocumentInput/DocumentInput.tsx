@@ -1,4 +1,4 @@
-import { useStores } from "@/store/hooks/root-store-context";
+import { useStore } from "@/app/store";
 import { calculateDateRange } from "@/utils/calculateDateRange";
 import mammoth from "mammoth";
 import { observer } from "mobx-react-lite";
@@ -8,7 +8,7 @@ import { findDatesAndTechnologies } from "./utils";
 export const DocumentInput = observer(() => {
   const {
     projects: { clearProjects, addProject },
-  } = useStores();
+  } = useStore();
 
   const handleFileChange: ChangeEventHandler<HTMLInputElement> = async (event) => {
     const file = event.target.files?.[0] || null;

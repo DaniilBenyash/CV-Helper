@@ -1,7 +1,7 @@
 import { makeAutoObservable } from "mobx";
 import { getTechnologiesMap } from "@/utils/getTechnologiesMap";
 import { TECHNOLOGIES } from "@/constants/technologies";
-import { Projects } from "@/abstraction/store/fields";
+import { Projects, TechnologiesTableData } from "@/abstraction/store/fields";
 import { AddProject, SetDate, SetTechnologies } from "@/abstraction/store/methods";
 import { getCurrentMonth } from "@/utils/getCurrentMonth";
 import { normalizeDates } from "@/utils/normalizeDates";
@@ -16,14 +16,13 @@ const intitialState: Projects = [
   { id: 0, firstDate: currentMonth, lastDate: currentMonth, dateRange: 0, technologies: [] },
 ];
 
-export class ProjectsStore extends AbstractProjectsStore {
+export class ProjectsStore implements AbstractProjectsStore {
   nextId = nextId;
   technologiesMap = getTechnologiesMap(TECHNOLOGIES);
   projects = intitialState;
-  table = {};
+  table: TechnologiesTableData = {};
 
   constructor() {
-    super();
     makeAutoObservable(this);
   }
 
