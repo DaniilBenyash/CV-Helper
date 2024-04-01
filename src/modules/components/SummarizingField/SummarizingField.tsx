@@ -1,5 +1,5 @@
 import { observer } from "mobx-react-lite";
-import { useStore } from "@/app/store";
+import { useStore } from "@/modules/hooks";
 import { Flex, Typography } from "antd";
 import { useEffect, useState } from "react";
 import { Technology } from "@/abstraction/store/fields";

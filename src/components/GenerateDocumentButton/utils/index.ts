@@ -1,5 +1,5 @@
 import { TechnologiesTableData, Technology } from "@/abstraction/store/fields";
-import { capitalize } from "@/utils/capitalize";
+import { capitalize } from "@/modules/utils/capitalize";
 
 type DataForGenerating = { sections: { section: string; technologies: Technology[] }[] };
 

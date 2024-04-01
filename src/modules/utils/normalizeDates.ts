@@ -1,9 +1,9 @@
-import { Projects } from "@/abstraction/store/fields";
+import { IProject } from "../store/types";
 import { getCurrentMonth } from "./getCurrentMonth";
 import { calculateDateRange } from "./calculateDateRange";
 
-export const normalizeDates = (projects: Projects) => {
-  return projects.reduce((acc: Projects, project) => {
+export const normalizeDates = (projects: IProject[]) => {
+  return projects.reduce((acc: IProject[], project) => {
     const lastDate = acc.length === 0 ? getCurrentMonth() : acc[acc.length - 1].firstDate;
     const firstDate = project.firstDate > lastDate ? lastDate : project.firstDate;
 

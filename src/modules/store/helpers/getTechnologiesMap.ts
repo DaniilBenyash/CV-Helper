@@ -1,6 +1,5 @@
-import { TechnologiesNames } from "@/abstraction/constants/technologies";
-import { TechnologiesMap } from "@/abstraction/store/fields";
-import { normalizeString } from "./normalizeString";
+import { IAllTechnologies, ITechnologiesMap } from "../types";
+import { normalizeString } from "../../utils/normalizeString";
 
 /**
  * Function for transformation Technologies object to TechnologiesMap object where key is technology name and value is name of technologie section
@@ -8,8 +7,8 @@ import { normalizeString } from "./normalizeString";
  * @returns
  */
 
-export const getTechnologiesMap = (technologies: TechnologiesNames): TechnologiesMap => {
-  const result: TechnologiesMap = {};
+export const getTechnologiesMap = (technologies: IAllTechnologies): ITechnologiesMap => {
+  const result: ITechnologiesMap = {};
 
   for (const key in technologies) {
     technologies[key].forEach((technology) => {

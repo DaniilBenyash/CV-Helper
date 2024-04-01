@@ -1,29 +1,32 @@
 import { makeAutoObservable } from "mobx";
-import { getTechnologiesMap } from "@/utils/getTechnologiesMap";
-import { TECHNOLOGIES } from "@/constants/technologies";
-import { Projects, TechnologiesTableData } from "@/abstraction/store/fields";
-import { AddProject, SetDate, SetTechnologies } from "@/abstraction/store/methods";
-import { getCurrentMonth } from "@/utils/getCurrentMonth";
-import { normalizeDates } from "@/utils/normalizeDates";
-import { getTableOfTechnologies } from "@/utils/getTableOfTechnologies";
-import { AbstractProjectsStore } from "@/abstraction/store";
-
-const nextId = 1;
+import {
+  IProjectsStore,
+  ITechnologiesTableData,
+  IProject,
+  ITechnologiesMap,
+} from "@/modules/store/types/store";
+import { getTechnologiesMap } from "@/modules/store/helpers/getTechnologiesMap";
+import { allTechnologies } from "./constants";
+import { getCurrentMonth } from "@/modules/utils/getCurrentMonth";
+import { normalizeDates } from "@/modules/utils/normalizeDates";
+import { getTableOfTechnologies } from "@/modules/store/helpers/getTableOfTechnologies";
 
 const currentMonth = getCurrentMonth();
 
-const intitialState: Projects = [
-  { id: 0, firstDate: currentMonth, lastDate: currentMonth, dateRange: 0, technologies: [] },
-];
-
-export class ProjectsStore implements AbstractProjectsStore {
-  nextId = nextId;
-  technologiesMap = getTechnologiesMap(TECHNOLOGIES);
-  projects = intitialState;
-  table: TechnologiesTableData = {};
+export class ProjectsStore implements IProjectsStore {
+  nextId: number;
+  technologiesMap: ITechnologiesMap;
+  projects: IProject[];
+  table: ITechnologiesTableData;
 
   constructor() {
     makeAutoObservable(this);
+    this.nextId = 1;
+    this.projects = [
+      { id: 0, firstDate: currentMonth, lastDate: currentMonth, dateRange: 0, technologies: [] },
+    ];
+    this.technologiesMap = getTechnologiesMap(allTechnologies);
+    this.table = {};
   }
 
   clearProjects = () => {
@@ -47,7 +50,7 @@ export class ProjectsStore implements AbstractProjectsStore {
     this.nextId = this.nextId + 1;
   };
 
-  addProject: AddProject = (project) => {
+  addProject = (project: IProject) => {
     this.projects.push({
       ...project,
       id: this.nextId,
@@ -58,7 +61,7 @@ export class ProjectsStore implements AbstractProjectsStore {
     this.table = getTableOfTechnologies(this.projects, this.technologiesMap);
   };
 
-  setDate: SetDate = (id, firstDate, range) => {
+  setDate = (id: number, firstDate: string, range: number) => {
     const targetProject = this.projects.find((obj) => obj.id === id);
 
     if (targetProject) {
@@ -69,7 +72,7 @@ export class ProjectsStore implements AbstractProjectsStore {
     this.table = getTableOfTechnologies(this.projects, this.technologiesMap);
   };
 
-  setTechnologies: SetTechnologies = (id, technologies) => {
+  setTechnologies = (id: number, technologies: string) => {
     const targetProject = this.projects.find((obj) => obj.id === id);
     const splitRegex = /,\s*/;
     const technologiesArr = technologies.split(splitRegex);

@@ -1,1 +1,0 @@
-export { TdTechnologyName } from "./TdTechnologyName";

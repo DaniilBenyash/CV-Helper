@@ -1,10 +1,10 @@
 import { InputDate, TextArea, Flex } from "@/ui-kit";
 import dayjs, { Dayjs } from "dayjs";
 import { FC } from "react";
-import { useStore } from "@/app/store";
+import { useStore } from "@/modules/hooks";
 import { Project } from "@/abstraction/store/fields";
-import { calculateDateRange } from "@/utils/calculateDateRange";
-import { dateFormat } from "@/abstraction/formats";
+import { calculateDateRange } from "@/modules/utils/calculateDateRange";
+import { dateFormat } from "@/modules/constants";
 import { observer } from "mobx-react-lite";
 
 type FormProjectProps = {

@@ -1,9 +1,7 @@
-import { Button, Flex, Typography } from "antd";
+import { Button, Flex, Title } from "@/ui-kit";
 import { FormProject } from "@/components/FormProject";
-import { useStore } from "@/app/store";
+import { useStore } from "@/modules/hooks";
 import { observer } from "mobx-react-lite";
-
-const { Title } = Typography;
 
 // TODO should make this component more designable
 export const ListProjects = observer(() => {

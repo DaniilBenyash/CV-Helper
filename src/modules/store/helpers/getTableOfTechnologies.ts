@@ -1,18 +1,22 @@
-import { Projects, TechnologiesMap, TechnologiesTableData } from "@/abstraction/store/fields";
-import { normalizeString } from "./normalizeString";
-import { TECHNOLOGIES } from "@/constants/technologies";
-import { SectionsSortingWeights } from "@/abstraction/constants/technologies";
+import {
+  IProject,
+  ITechnologiesMap,
+  ITechnologiesTableData,
+  ISectionsSortingWeights,
+} from "../types";
+import { normalizeString } from "../../utils/normalizeString";
+import { allTechnologies } from "../constants";
 
 // Here calculate the weights of the technology objects, where weight is the index of the key array
 const getTechnologiesWeightsMap = () =>
-  Object.keys(TECHNOLOGIES).reduce((acc: SectionsSortingWeights, item, index) => {
+  Object.keys(allTechnologies).reduce((acc: ISectionsSortingWeights, item, index) => {
     const normalizedKey = normalizeString(item);
     acc[normalizedKey] = index;
     return acc;
   }, {});
 
 // Here we are sorting the tableOfTechnologies by weights of technologies
-const sortTableOfTechnologies = (obj: TechnologiesTableData): TechnologiesTableData => {
+const sortTableOfTechnologies = (obj: ITechnologiesTableData): ITechnologiesTableData => {
   const resultObjectArray = Object.entries(obj);
   const wightsMap = getTechnologiesWeightsMap();
 
@@ -33,13 +37,12 @@ const sortTableOfTechnologies = (obj: TechnologiesTableData): TechnologiesTableD
  * @returns {TechnologiesTableData}
  */
 export const getTableOfTechnologies = (
-  projects: Projects,
-  map: TechnologiesMap,
-): TechnologiesTableData => {
-  const resultObj: TechnologiesTableData = {};
-
+  projects: IProject[],
+  map: ITechnologiesMap,
+): ITechnologiesTableData => {
+  const resultObj: ITechnologiesTableData = {};
   projects.forEach((project) => {
-    project.technologies.forEach((tech) => {
+    project.technologies?.forEach((tech) => {
       const techName = normalizeString(tech);
       const section = map[techName] || "notFound";
 
@@ -60,6 +63,5 @@ export const getTableOfTechnologies = (
       ];
     });
   });
-
   return sortTableOfTechnologies(resultObj);
 };
