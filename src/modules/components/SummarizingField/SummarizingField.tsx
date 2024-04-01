@@ -2,11 +2,11 @@ import { observer } from "mobx-react-lite";
 import { useStore } from "@/modules/hooks";
 import { Flex, Typography } from "antd";
 import { useEffect, useState } from "react";
-import { Technology } from "@/abstraction/store/fields";
+import { ITechnology } from "@/modules/store/types";
 
 const { Title } = Typography;
 
-const initialState: { [key: string]: Technology[] } = {
+const initialState: { [key: string]: ITechnology[] } = {
   "programming languages": [],
   frontend: [],
   cloud: [],

@@ -2,13 +2,13 @@ import { InputDate, TextArea, Flex } from "@/ui-kit";
 import dayjs, { Dayjs } from "dayjs";
 import { FC } from "react";
 import { useStore } from "@/modules/hooks";
-import { Project } from "@/abstraction/store/fields";
+import { IProject } from "@/modules/store/types";
 import { calculateDateRange } from "@/modules/utils/calculateDateRange";
 import { dateFormat } from "@/modules/constants";
 import { observer } from "mobx-react-lite";
 
 type FormProjectProps = {
-  projectData: Project;
+  projectData: IProject;
 };
 
 export const FormProject: FC<FormProjectProps> = observer(({ projectData }) => {
@@ -21,7 +21,7 @@ export const FormProject: FC<FormProjectProps> = observer(({ projectData }) => {
     dayjs(projectData.lastDate, dateFormat),
   ];
 
-  const textAreaValue = projectData.technologies.join(", ");
+  const textAreaValue = projectData.technologies?.join(", ") || "";
 
   const handleInputDateChange = (firstDate: string, lastDate: string) => {
     const dateRange = calculateDateRange(firstDate, lastDate);
