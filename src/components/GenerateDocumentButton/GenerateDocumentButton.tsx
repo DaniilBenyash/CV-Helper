@@ -4,11 +4,11 @@ import PizZipUtils from "pizzip/utils/index.js";
 import { saveAs } from "file-saver";
 import expressionParser from "docxtemplater/expressions";
 import { Button } from "antd";
-import { useStores } from "@/store/hooks/root-store-context";
-import { Technology } from "@/abstraction/store/fields";
+import { useStore } from "@/modules/hooks";
+import { ITechnology } from "@/modules/store/types";
 import { observer } from "mobx-react-lite";
 import { generateStringWithLinebreaks, getDataForDocumentGenerating } from "./utils";
-import { convertMonthsToYears } from "@/utils/convertMonthsToYears";
+import { convertMonthsToYears } from "@/modules/utils/convertMonthsToYears";
 
 function loadFile(url: string, callback: (err: Error, data: string) => void) {
   PizZipUtils.getBinaryContent(url, callback);
@@ -17,7 +17,7 @@ function loadFile(url: string, callback: (err: Error, data: string) => void) {
 export const GenerateDocumentButton = observer(() => {
   const {
     projects: { table },
-  } = useStores();
+  } = useStore();
 
   const generateDocument = () => {
     const dataForGenerating = getDataForDocumentGenerating(table);
@@ -34,16 +34,16 @@ export const GenerateDocumentButton = observer(() => {
         parser: expressionParser,
       });
       doc.render({
-        getNames: (scope: { technologies: Technology[] }) =>
-          generateStringWithLinebreaks<Technology>(scope.technologies, "name"),
-        getRanges: (scope: { technologies: Technology[] }) =>
-          generateStringWithLinebreaks<Technology>(
+        getNames: (scope: { technologies: ITechnology[] }) =>
+          generateStringWithLinebreaks<ITechnology>(scope.technologies, "name"),
+        getRanges: (scope: { technologies: ITechnology[] }) =>
+          generateStringWithLinebreaks<ITechnology>(
             scope.technologies,
             "range",
             convertMonthsToYears,
           ),
-        getLastUsed: (scope: { technologies: Technology[] }) =>
-          generateStringWithLinebreaks<Technology>(scope.technologies, "lastUsed"),
+        getLastUsed: (scope: { technologies: ITechnology[] }) =>
+          generateStringWithLinebreaks<ITechnology>(scope.technologies, "lastUsed"),
         ...dataForGenerating,
       });
       const out = doc.getZip().generate({

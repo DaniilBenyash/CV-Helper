@@ -1,9 +1,9 @@
-import { TechnologiesTableData, Technology } from "@/abstraction/store/fields";
-import { capitalize } from "@/utils/capitalize";
+import { ITechnologiesTableData, ITechnology } from "@/modules/store/types";
+import { capitalize } from "@/modules/utils/capitalize";
 
-type DataForGenerating = { sections: { section: string; technologies: Technology[] }[] };
+type DataForGenerating = { sections: { section: string; technologies: ITechnology[] }[] };
 
-export const getDataForDocumentGenerating = (table: TechnologiesTableData) => {
+export const getDataForDocumentGenerating = (table: ITechnologiesTableData) => {
   return Object.entries(table).reduce(
     (acc: DataForGenerating, item) => {
       const section = capitalize(item[0]);

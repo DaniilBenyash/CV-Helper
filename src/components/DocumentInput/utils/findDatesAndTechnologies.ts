@@ -1,5 +1,5 @@
-import { getCurrentMonth } from "@/utils/getCurrentMonth";
-import { normalizeString } from "@/utils/normalizeString";
+import { getCurrentMonth } from "@/modules/utils/getCurrentMonth";
+import { normalizeString } from "@/modules/utils/normalizeString";
 
 const convertDate = (str: string) => {
   return `${str.slice(3)}-${str.slice(0, 2)}`;
