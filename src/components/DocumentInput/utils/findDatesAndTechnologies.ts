@@ -12,7 +12,7 @@ export const findDatesAndTechnologies = (htmlStr: string) => {
   const arr = htmlStr.split(regTr);
 
   // take only items with 'Environment' appearance
-  const arrTech = arr.filter((str) => str.includes("Environment"));
+  const arrTech = arr.filter((str) => str.includes("Environment") || str.includes("Технологии"));
   // take string with technologies
   const arrWithTechnologies = arrTech.map((item) => {
     // separate each item by <p> or </p>
@@ -30,7 +30,7 @@ export const findDatesAndTechnologies = (htmlStr: string) => {
   });
 
   // take only items with 'Project roles' appearance
-  const arrDates = arr.filter((str) => str.includes("Project roles"));
+  const arrDates = arr.filter((str) => str.includes("Project roles") || str.includes("Должность"));
   // make array witch subarrays. Subarray has two values [firstDate, lastDate]
   const arrWithDates = arrDates.map((item) => {
     // separate each item by <p> or </p>
