@@ -8,6 +8,7 @@ import { SummarizingField } from "@/modules/components/SummarizingField";
 import { useStore } from "@/modules/hooks";
 import { observer } from "mobx-react-lite";
 import { Spinner } from "@/ui-kit/Spinner";
+import { TableLink } from "@/components/TableLink";
 
 const isEmpty = <T extends object>(obj: T) => Object.keys(obj).length === 0;
 
@@ -29,6 +30,7 @@ export const MainPage = observer(() => {
         <ReloadPageButton />
         <DocumentInput />
         <GenerateDocumentButton />
+        <TableLink />
       </Flex>
       <Flex gap={100} justify="start">
         <ListProjects />
