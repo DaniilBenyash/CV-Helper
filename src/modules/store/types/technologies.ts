@@ -1,4 +1,4 @@
-export interface IAllTechnologies {
+export interface ISectionsOrder {
   [index: string]: string[];
 }
 

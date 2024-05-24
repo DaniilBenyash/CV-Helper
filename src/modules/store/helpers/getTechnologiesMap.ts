@@ -1,4 +1,4 @@
-import { IAllTechnologies, ITechnologiesMap } from "../types";
+import { ISectionsOrder, ITechnologiesMap } from "../types";
 import { normalizeString } from "../../utils/normalizeString";
 
 /**
@@ -7,14 +7,13 @@ import { normalizeString } from "../../utils/normalizeString";
  * @returns
  */
 
-export const getTechnologiesMap = (technologies: IAllTechnologies): ITechnologiesMap => {
+export const getTechnologiesMap = (technologies: ISectionsOrder): ITechnologiesMap => {
   const result: ITechnologiesMap = {};
 
   for (const key in technologies) {
     technologies[key].forEach((technology) => {
-      // TODO schould be created a function for making standard string without spaces, commas and dashes
       const normalizedTechnologyName = normalizeString(technology);
-      result[normalizedTechnologyName] = key.split("_").join(" ").toLowerCase();
+      result[normalizedTechnologyName] = key;
     });
   }
 
