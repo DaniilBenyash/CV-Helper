@@ -1,4 +1,4 @@
-import { ITechnologiesTableData, ITechnology } from "@/modules/store/types";
+import { ITechnologiesTableData, ITechnology } from "@/types/storeTypes";
 import { capitalize } from "@/modules/utils/capitalize";
 
 type DataForGenerating = { sections: { section: string; technologies: ITechnology[] }[] };

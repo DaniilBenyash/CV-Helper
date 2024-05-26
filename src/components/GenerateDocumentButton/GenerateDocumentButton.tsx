@@ -5,7 +5,7 @@ import { saveAs } from "file-saver";
 import expressionParser from "docxtemplater/expressions";
 import { Button } from "antd";
 import { useStore } from "@/modules/hooks";
-import { ITechnology } from "@/modules/store/types";
+import { ITechnology } from "@/types/storeTypes";
 import { observer } from "mobx-react-lite";
 import { generateStringWithLinebreaks, getDataForDocumentGenerating } from "./utils";
 import { convertMonthsToYears } from "@/modules/utils/convertMonthsToYears";

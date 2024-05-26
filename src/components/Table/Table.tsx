@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { ITechnologiesTableData } from "@/modules/store/types";
+import { ITechnologiesTableData } from "@/types/storeTypes";
 import { capitalize } from "@/modules/utils/capitalize";
 import { P, Td } from "./styles";
 import { convertMonthsToYears } from "@/modules/utils/convertMonthsToYears";

@@ -3,7 +3,7 @@ import {
   ITechnologiesMap,
   ITechnologiesTableData,
   ISectionsSortingWeights,
-} from "../types";
+} from "../../../types/storeTypes";
 import { normalizeString } from "../../utils/normalizeString";
 import { sectionsOrder } from "../constants/sectionsOrder";
 
@@ -44,8 +44,8 @@ export const getTableOfTechnologies = (
   projects.forEach((project) => {
     project.technologies?.forEach((techName) => {
       const normalizedTechName = normalizeString(techName);
-      const section = map[normalizedTechName] || "notFound";
-      const sectionInResult = resultObj[section] ?? [];
+      const section = map[normalizedTechName] || { name: "notFound" };
+      const sectionInResult = resultObj[section.name] ?? [];
 
       const technologyInSection = sectionInResult.find(
         (item) => normalizeString(item.name) === normalizedTechName,
@@ -56,9 +56,13 @@ export const getTableOfTechnologies = (
         return;
       }
 
-      resultObj[section] = [
+      resultObj[section.name] = [
         ...sectionInResult,
-        { name: techName, range: project.dateRange, lastUsed: project.lastDate.slice(0, 4) },
+        {
+          name: techName,
+          range: project.dateRange,
+          lastUsed: project.lastDate.slice(0, 4),
+        },
       ];
     });
   });

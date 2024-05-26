@@ -7,7 +7,7 @@ export interface IProject {
 }
 
 export interface ITechnologiesMap {
-  [index: string]: string;
+  [index: string]: { name: string; orderWeight: number };
 }
 
 export interface ITechnology {
@@ -20,11 +20,16 @@ export interface ITechnologiesTableData {
   [index: string]: ITechnology[];
 }
 
+export interface ISummaryField {
+  [index: string]: string[];
+}
+
 export interface IProjectsStore {
   nextId: number;
   technologiesMap: ITechnologiesMap;
   projects: IProject[];
   table: ITechnologiesTableData;
+  summary: ISummaryField;
   clearProjects: () => void;
   addEmptyProject: () => void;
   addProject: (project: IProject) => void;

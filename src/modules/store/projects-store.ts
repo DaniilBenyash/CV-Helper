@@ -4,11 +4,11 @@ import {
   ITechnologiesTableData,
   IProject,
   ITechnologiesMap,
-} from "@/modules/store/types/store";
-import { getTechnologiesMap } from "@/modules/store/helpers/getTechnologiesMap";
+  ISummaryField,
+} from "@/types/storeTypes/store";
 import { getCurrentMonth } from "@/modules/utils/getCurrentMonth";
 import { normalizeDates } from "@/modules/utils/normalizeDates";
-import { getTableOfTechnologies } from "@/modules/store/helpers/getTableOfTechnologies";
+import { getSummary, getTableOfTechnologies, getTechnologiesMap } from "./helpers";
 
 const currentMonth = getCurrentMonth();
 
@@ -19,14 +19,21 @@ export class ProjectsStore implements IProjectsStore {
     { id: 0, firstDate: currentMonth, lastDate: currentMonth, dateRange: 0, technologies: [] },
   ];
   table: ITechnologiesTableData = {};
+  summary: ISummaryField = {};
+  hasCollisions: boolean = false;
 
   constructor() {
     makeAutoObservable(this);
   }
 
-  private updateProjectsAndTable = () => {
+  private updateProjects = () => {
     this.projects = normalizeDates(this.projects);
-    this.updateTable();
+  };
+
+  private updateSummary = () => {
+    const { summary, hasCollisions } = getSummary(this.projects, this.technologiesMap);
+    this.summary = summary;
+    this.hasCollisions = hasCollisions;
   };
 
   private updateTable = () => {
@@ -64,7 +71,9 @@ export class ProjectsStore implements IProjectsStore {
       });
 
       this.nextId = this.nextId + 1;
-      this.updateProjectsAndTable();
+      this.updateProjects();
+      this.updateTable();
+      this.updateSummary();
     });
   };
 
@@ -76,7 +85,9 @@ export class ProjectsStore implements IProjectsStore {
         targetProject.firstDate = firstDate;
         targetProject.dateRange = range;
       }
-      this.updateProjectsAndTable();
+      this.updateProjects();
+      this.updateTable();
+      this.updateSummary();
     });
   };
 
@@ -89,7 +100,13 @@ export class ProjectsStore implements IProjectsStore {
       if (targetProject) {
         targetProject.technologies = technologiesArr ?? [];
       }
+      this.table = getTableOfTechnologies(this.projects, this.technologiesMap);
+
+      if (targetProject) {
+        targetProject.technologies = technologiesArr ?? [];
+      }
       this.updateTable();
+      this.updateSummary();
     });
   };
 
