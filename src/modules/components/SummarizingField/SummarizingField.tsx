@@ -30,7 +30,7 @@ export const SummarizingField = observer(() => {
       {displaySummary(summary)}
       {hasCollisions && (
         <Paragraph style={{ backgroundColor: "#FF7373" }}>
-          Fields has duplicated technologies names above
+          Fields has duplicated technologies names above or table has not founded technologies
         </Paragraph>
       )}
     </Flex>
