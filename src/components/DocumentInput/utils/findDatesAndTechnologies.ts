@@ -1,5 +1,8 @@
 import { getCurrentMonth } from "@/modules/utils/getCurrentMonth";
 import { normalizeString } from "@/modules/utils/normalizeString";
+import { removeBraces } from "./removeBraces";
+import { splitStringByCommaWithoutCommasInBraces } from "./splitStringByCommaWithoutCommasInBraces";
+import { removeLastDot } from "./removeLastDot";
 
 const convertDate = (str: string) => {
   return `${str.slice(3)}-${str.slice(0, 2)}`;
@@ -52,9 +55,13 @@ export const findDatesAndTechnologies = (htmlStr: string) => {
   const result = [];
   // make result array with objects contains dates and technologies arrays
   for (let key = 0; key < arrWithDates.length; key++) {
-    const splitRegex = /,\s*/;
-    const technologiesArr = arrWithTechnologies[key].split(splitRegex);
-    result.push({ dates: arrWithDates[key][0], technologies: technologiesArr });
+    const technologiesArr = splitStringByCommaWithoutCommasInBraces(arrWithTechnologies[key]);
+    const technologiesArrWithoutBraces = removeBraces(technologiesArr);
+    const technologiesArrWithoutLastDotInLastElement = removeLastDot(technologiesArrWithoutBraces);
+    result.push({
+      dates: arrWithDates[key][0],
+      technologies: technologiesArrWithoutLastDotInLastElement,
+    });
   }
 
   return result;

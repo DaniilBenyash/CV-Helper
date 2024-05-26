@@ -1,4 +1,4 @@
-import { IProject } from "../store/types";
+import { IProject } from "../../types/storeTypes";
 import { getCurrentMonth } from "./getCurrentMonth";
 import { calculateDateRange } from "./calculateDateRange";
 
