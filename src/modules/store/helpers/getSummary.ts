@@ -4,15 +4,17 @@ import { SectionsNames } from "../enums/sectionsNames";
 
 type Map = Partial<Record<SectionsNames, string[]>>;
 
+const summary: Map = {
+  [SectionsNames.ProgrammingLanguages]: [],
+  [SectionsNames.Frontend]: [],
+  [SectionsNames.BackendTechnologies]: [],
+  [SectionsNames.Containerization]: [],
+  [SectionsNames.CiCd]: [],
+  [SectionsNames.Cloud]: [],
+  [SectionsNames.Databases]: [],
+};
+
 export const getSummary = (projects: IProject[], technologiesMap: ITechnologiesMap) => {
-  const summary: Map = {
-    [SectionsNames.ProgrammingLanguages]: [],
-    [SectionsNames.Frontend]: [],
-    [SectionsNames.BackendTechnologies]: [],
-    [SectionsNames.CiCd]: [],
-    [SectionsNames.Cloud]: [],
-    [SectionsNames.Databases]: [],
-  };
   const set = new Set<string>();
   const normalizedSet = new Set<string>();
 
