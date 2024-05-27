@@ -4,28 +4,24 @@ import { SectionsNames } from "../enums/sectionsNames";
 
 type Map = Partial<Record<SectionsNames, string[]>>;
 
-const summary: Map = {
-  [SectionsNames.ProgrammingLanguages]: [],
-  [SectionsNames.Frontend]: [],
-  [SectionsNames.BackendTechnologies]: [],
-  [SectionsNames.Containerization]: [],
-  [SectionsNames.CiCd]: [],
-  [SectionsNames.Cloud]: [],
-  [SectionsNames.Databases]: [],
-};
-
 export const getSummary = (projects: IProject[], technologiesMap: ITechnologiesMap) => {
-  const set = new Set<string>();
-  const normalizedSet = new Set<string>();
+  const summary: Map = {
+    [SectionsNames.ProgrammingLanguages]: [],
+    [SectionsNames.Frontend]: [],
+    [SectionsNames.BackendTechnologies]: [],
+    [SectionsNames.Containerization]: [],
+    [SectionsNames.CiCd]: [],
+    [SectionsNames.Cloud]: [],
+    [SectionsNames.Databases]: [],
+  };
+  const technologies = projects.reduce(
+    (acc: string[], item) => acc.concat(item.technologies ?? []),
+    [],
+  );
+  const set = new Set<string>(technologies);
+  const normalizedSet = new Set<string>(technologies.map((tech) => normalizeString(tech)));
 
-  projects
-    .reduce((acc: string[], item) => acc.concat(item.technologies ?? []), [])
-    .forEach((item) => {
-      set.add(item);
-      normalizedSet.add(normalizeString(item));
-    });
-
-  const sortedArrFromSet = [...set].sort((a, b) => {
+  const sortedArr = [...set].sort((a, b) => {
     const first = technologiesMap[normalizeString(a)];
     const last = technologiesMap[normalizeString(b)];
 
@@ -41,7 +37,7 @@ export const getSummary = (projects: IProject[], technologiesMap: ITechnologiesM
     return 0;
   });
 
-  sortedArrFromSet.forEach((technology) => {
+  sortedArr.forEach((technology) => {
     const normalizedTech = normalizeString(technology);
 
     if (!technologiesMap[normalizeString(normalizedTech)]) return;
