@@ -40,11 +40,18 @@ export class ProjectsStore implements IProjectsStore {
     this.table = getTableOfTechnologies(this.projects, this.technologiesMap);
   };
 
+  private updateProjectsSummaryAndTable = () => {
+    this.updateProjects();
+    this.updateTable();
+    this.updateSummary();
+  };
+
   clearProjects = () => {
     runInAction(() => {
       this.projects = [];
       this.table = {};
       this.nextId = 0;
+      this.summary = {};
     });
   };
 
@@ -71,9 +78,7 @@ export class ProjectsStore implements IProjectsStore {
       });
 
       this.nextId = this.nextId + 1;
-      this.updateProjects();
-      this.updateTable();
-      this.updateSummary();
+      this.updateProjectsSummaryAndTable();
     });
   };
 
@@ -85,9 +90,7 @@ export class ProjectsStore implements IProjectsStore {
         targetProject.firstDate = firstDate;
         targetProject.dateRange = range;
       }
-      this.updateProjects();
-      this.updateTable();
-      this.updateSummary();
+      this.updateProjectsSummaryAndTable();
     });
   };
 
@@ -110,7 +113,10 @@ export class ProjectsStore implements IProjectsStore {
     });
   };
 
-  fetchTableData = async (url: string) => {
+  fetchTableData = async () => {
+    const url =
+      "https://script.google.com/macros/s/AKfycbyPOWWTt0fev30xY5on7nJnRlT16p1-e42dgM5w-fH6tmAqzMP4SIrTz5TG0J28fSisrg/exec";
+
     try {
       const response = await fetch(url);
       if (!response.ok) {
@@ -121,6 +127,7 @@ export class ProjectsStore implements IProjectsStore {
       // Обновляем состояние внутри runInAction для MobX
       runInAction(() => {
         this.technologiesMap = getTechnologiesMap(data);
+        this.updateProjectsSummaryAndTable();
       });
     } catch (error) {
       // eslint-disable-next-line no-console
@@ -130,6 +137,4 @@ export class ProjectsStore implements IProjectsStore {
 }
 
 export const projectsStore = new ProjectsStore();
-projectsStore.fetchTableData(
-  "https://script.google.com/macros/s/AKfycbyPOWWTt0fev30xY5on7nJnRlT16p1-e42dgM5w-fH6tmAqzMP4SIrTz5TG0J28fSisrg/exec",
-);
+projectsStore.fetchTableData();

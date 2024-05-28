@@ -14,10 +14,7 @@ export const getSummary = (projects: IProject[], technologiesMap: ITechnologiesM
     [SectionsNames.Cloud]: [],
     [SectionsNames.Databases]: [],
   };
-  const technologies = projects.reduce(
-    (acc: string[], item) => acc.concat(item.technologies ?? []),
-    [],
-  );
+  const technologies = projects.flatMap(({ technologies }) => technologies ?? []);
   const set = new Set<string>(technologies);
   const normalizedSet = new Set<string>(technologies.map((tech) => normalizeString(tech)));
 
@@ -40,9 +37,9 @@ export const getSummary = (projects: IProject[], technologiesMap: ITechnologiesM
   sortedArr.forEach((technology) => {
     const normalizedTech = normalizeString(technology);
 
-    if (!technologiesMap[normalizeString(normalizedTech)]) return;
+    if (!technologiesMap[normalizedTech]) return;
 
-    const section = technologiesMap[normalizeString(normalizedTech)].name as SectionsNames;
+    const section = technologiesMap[normalizedTech].name as SectionsNames;
 
     if (summary[section]) {
       summary[section]!.push(technology);
