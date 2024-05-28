@@ -9,6 +9,7 @@ import { useStore } from "@/modules/hooks";
 import { observer } from "mobx-react-lite";
 import { Spinner } from "@/ui-kit/Spinner";
 import { TableLink } from "@/components/TableLink";
+import { RefetchDataButton } from "@/components/RefetchDataButton";
 
 const isEmpty = <T extends object>(obj: T) => Object.keys(obj).length === 0;
 
@@ -30,6 +31,7 @@ export const MainPage = observer(() => {
         <ReloadPageButton />
         <DocumentInput />
         <GenerateDocumentButton />
+        <RefetchDataButton />
         <TableLink />
       </Flex>
       <Flex gap={100} justify="start">
