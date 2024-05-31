@@ -21,6 +21,7 @@ export class ProjectsStore implements IProjectsStore {
   table: ITechnologiesTableData = {};
   summary: ISummaryField = {};
   hasCollisions: boolean = false;
+  duplicatedValues: string[] = [];
 
   constructor() {
     makeAutoObservable(this);
@@ -31,9 +32,13 @@ export class ProjectsStore implements IProjectsStore {
   };
 
   private updateSummary = () => {
-    const { summary, hasCollisions } = getSummary(this.projects, this.technologiesMap);
+    const { summary, hasCollisions, duplicatedValues } = getSummary(
+      this.projects,
+      this.technologiesMap,
+    );
     this.summary = summary;
     this.hasCollisions = hasCollisions;
+    this.duplicatedValues = duplicatedValues;
   };
 
   private updateTable = () => {
