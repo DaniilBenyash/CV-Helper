@@ -2,17 +2,17 @@ import { observer } from "mobx-react-lite";
 import { useStore } from "@/modules/hooks";
 import { Flex, Typography } from "antd";
 import { normalizeString } from "@/modules/utils/normalizeString";
-import { FC, useMemo } from "react";
+import { FC, useCallback, useMemo } from "react";
 import { ISummaryField } from "@/types/storeTypes";
 
 const { Title, Paragraph } = Typography;
 
-type SummaryFieldProps = {
+type SummaryContentProps = {
   summary: ISummaryField;
   isDuplicated: (value: string) => boolean;
 };
 
-const SummaryContent: FC<SummaryFieldProps> = ({ summary, isDuplicated }) => {
+const SummaryContent: FC<SummaryContentProps> = ({ summary, isDuplicated }) => {
   return (
     <div>
       {Object.entries(summary).map(([key, valueArr]) => {
@@ -53,9 +53,12 @@ export const SummarizingField = observer(() => {
     [duplicatedValues],
   );
 
-  const isDuplicated = (value: string) => {
-    return normalizedDuplicatedValues.includes(normalizeString(value));
-  };
+  const isDuplicated = useCallback(
+    (value: string) => {
+      return normalizedDuplicatedValues.includes(normalizeString(value));
+    },
+    [normalizedDuplicatedValues],
+  );
 
   return (
     <Flex vertical gap="small" align="stretch" style={{ width: "30%" }}>
