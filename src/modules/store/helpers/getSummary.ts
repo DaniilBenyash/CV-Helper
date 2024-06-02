@@ -31,39 +31,38 @@ export const getSummary = (projects: IProject[], technologiesMap: ITechnologiesM
     [SectionsNames.Databases]: [],
   };
   const technologies = projects.flatMap(({ technologies }) => technologies ?? []);
-  const set = new Set<string>(technologies);
-  const normalizedSet = new Set<string>(technologies.map((tech) => normalizeString(tech)));
+  const uniqueTechnologies = Array.from(new Set<string>(technologies));
+  const normalizedSet = Array.from(new Set<string>(technologies.map(normalizeString)));
 
-  const setArr = [...set];
+  const techDetails = uniqueTechnologies.map((tech) => ({
+    original: tech,
+    normalized: normalizeString(tech),
+    map: technologiesMap[normalizeString(tech)],
+  }));
 
-  setArr
+  techDetails
     .sort((a, b) => {
-      const first = technologiesMap[normalizeString(a)];
-      const last = technologiesMap[normalizeString(b)];
       // If Map have both of technologies we make sorting
-      if (first && last) {
-        return (
-          technologiesMap[normalizeString(a)].orderWeight -
-          technologiesMap[normalizeString(b)].orderWeight
-        );
+      if (a.map && b.map) {
+        return a.map.orderWeight - b.map.orderWeight;
       }
       // If Map don't have a technologies
       return 0;
     })
-    .forEach((technology) => {
-      const normalizedTech = normalizeString(technology);
-      if (!technologiesMap[normalizedTech]) return;
-      const section = technologiesMap[normalizedTech].name as SectionsNames;
+    .forEach(({ original, map }) => {
+      if (!map) return;
+
+      const section = map.name as SectionsNames;
 
       if (summary[section]) {
-        summary[section]!.push(technology);
-        return;
+        summary[section]!.push(original);
+      } else {
+        summary[SectionsNames.Frontend]!.push(original);
       }
-      summary[SectionsNames.Frontend]!.push(technology);
     });
 
-  const hasCollisions = [...set].length !== [...normalizedSet].length;
-  const duplicatedValues = findDuplicates(setArr);
+  const hasCollisions = uniqueTechnologies.length !== normalizedSet.length;
+  const duplicatedValues = findDuplicates(uniqueTechnologies);
 
   return { summary, hasCollisions, duplicatedValues };
 };
