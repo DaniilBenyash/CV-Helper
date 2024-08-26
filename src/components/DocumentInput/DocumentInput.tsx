@@ -3,7 +3,7 @@ import { calculateDateRange } from "@/modules/utils/calculateDateRange";
 import mammoth from "mammoth";
 import { observer } from "mobx-react-lite";
 import { ChangeEventHandler } from "react";
-import { findDatesAndTechnologies } from "./utils";
+import { findProjectsData } from "./utils";
 
 export const DocumentInput = observer(() => {
   const {
@@ -23,7 +23,7 @@ export const DocumentInput = observer(() => {
       reader.onload = async (e) => {
         const arrayBuffer = e.target?.result as ArrayBuffer;
         const result = await convertDocxToHtml(arrayBuffer);
-        const projects = findDatesAndTechnologies(result);
+        const projects = findProjectsData(result);
 
         clearProjects();
         projects.forEach((item) => {
@@ -31,8 +31,10 @@ export const DocumentInput = observer(() => {
             id: 0,
             firstDate: item.dates[0],
             lastDate: item.dates[1],
-            technologies: item.technologies,
             dateRange: calculateDateRange(item.dates[0], item.dates[1]),
+            technologies: item.technologies,
+            name: item.name,
+            description: item.description,
           });
         });
       };

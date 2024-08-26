@@ -8,11 +8,10 @@ export const normalizeDates = (projects: IProject[]) => {
     const firstDate = project.firstDate > lastDate ? lastDate : project.firstDate;
 
     acc.push({
-      id: project.id,
+      ...project,
+      dateRange: calculateDateRange(firstDate, lastDate),
       firstDate,
       lastDate,
-      technologies: project.technologies,
-      dateRange: calculateDateRange(firstDate, lastDate),
     });
 
     return acc;

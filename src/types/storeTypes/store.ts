@@ -4,6 +4,8 @@ export interface IProject {
   lastDate: string;
   technologies: string[] | null;
   dateRange: number;
+  name: string;
+  description: string;
 }
 
 export interface ITechnologiesMap {
