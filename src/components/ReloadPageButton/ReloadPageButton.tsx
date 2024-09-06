@@ -4,8 +4,8 @@ import { observer } from "mobx-react-lite";
 
 export const ReloadPageButton = observer(() => {
   const {
-    projects: { clearProjects },
+    projects: { clearStore },
   } = useStore();
 
-  return <Button onClick={clearProjects}>Clear all</Button>;
+  return <Button onClick={clearStore}>Clear all</Button>;
 });

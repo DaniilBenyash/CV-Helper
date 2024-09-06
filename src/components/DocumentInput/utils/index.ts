@@ -1,1 +1,0 @@
-export { findDatesAndTechnologies } from "./findDatesAndTechnologies";

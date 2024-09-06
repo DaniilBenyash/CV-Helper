@@ -1,4 +1,3 @@
-import { DocumentInput } from "@/components/DocumentInput";
 import { Flex } from "./styles";
 import { ListProjects } from "@/modules/components/ListProjects";
 import { TableSection } from "@/modules/components/TableSection";
@@ -10,6 +9,7 @@ import { observer } from "mobx-react-lite";
 import { Spinner } from "@/ui-kit/Spinner";
 import { TableLink } from "@/components/TableLink";
 import { RefetchDataButton } from "@/components/RefetchDataButton";
+import { DocumentInput } from "@/modules/components/DocumentInput";
 
 const isEmpty = <T extends object>(obj: T) => Object.keys(obj).length === 0;
 

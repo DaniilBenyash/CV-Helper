@@ -24,15 +24,12 @@ const SummaryContent: FC<SummaryContentProps> = ({ summary, isDuplicated }) => {
             <Paragraph>
               {valueArr.map((value) => {
                 return (
-                  <>
-                    <span
-                      key={value + `${isDuplicated(value)}`}
-                      style={{ backgroundColor: isDuplicated(value) ? "#FF7373" : "none" }}
-                    >
+                  <span key={value + `${isDuplicated(value)}`}>
+                    <span style={{ backgroundColor: isDuplicated(value) ? "#FF7373" : "none" }}>
                       {value}
                     </span>
                     ,{" "}
-                  </>
+                  </span>
                 );
               })}
             </Paragraph>

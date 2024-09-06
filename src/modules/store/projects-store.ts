@@ -5,6 +5,7 @@ import {
   IProject,
   ITechnologiesMap,
   ISummaryField,
+  SelfInfo,
 } from "@/types/storeTypes/store";
 import { getCurrentMonth } from "@/modules/utils/getCurrentMonth";
 import { normalizeDates } from "@/modules/utils/normalizeDates";
@@ -16,15 +17,28 @@ export class ProjectsStore implements IProjectsStore {
   nextId: number = 1;
   technologiesMap: ITechnologiesMap = {};
   projects: IProject[] = [
-    { id: 0, firstDate: currentMonth, lastDate: currentMonth, dateRange: 0, technologies: [] },
+    {
+      id: 0,
+      firstDate: currentMonth,
+      lastDate: currentMonth,
+      dateRange: 0,
+      technologies: [],
+      name: "",
+      description: "",
+    },
   ];
   table: ITechnologiesTableData = {};
   summary: ISummaryField = {};
   hasCollisions: boolean = false;
   duplicatedValues: string[] = [];
+  name = "";
+  roles = "";
+  education: string = "";
+  selfIntro: string = "";
 
   constructor() {
     makeAutoObservable(this);
+    this.fetchTableData();
   }
 
   private updateProjects = () => {
@@ -51,8 +65,21 @@ export class ProjectsStore implements IProjectsStore {
     this.updateSummary();
   };
 
-  clearProjects = () => {
+  addSelfInfo = (selfInfo: SelfInfo) => {
     runInAction(() => {
+      this.name = selfInfo.name;
+      this.roles = selfInfo.roles;
+      this.education = selfInfo.education;
+      this.selfIntro = selfInfo.selfIntro;
+    });
+  };
+
+  clearStore = () => {
+    runInAction(() => {
+      this.name = "";
+      this.roles = "";
+      this.education = "";
+      this.selfIntro = "";
       this.projects = [];
       this.table = {};
       this.nextId = 0;
@@ -70,6 +97,8 @@ export class ProjectsStore implements IProjectsStore {
       lastDate,
       dateRange: 0,
       technologies: [],
+      name: "",
+      description: "",
     });
 
     this.nextId = this.nextId + 1;
@@ -82,8 +111,8 @@ export class ProjectsStore implements IProjectsStore {
         id: this.nextId,
       });
 
-      this.nextId = this.nextId + 1;
       this.updateProjectsSummaryAndTable();
+      this.nextId = this.nextId + 1;
     });
   };
 
@@ -142,4 +171,3 @@ export class ProjectsStore implements IProjectsStore {
 }
 
 export const projectsStore = new ProjectsStore();
-projectsStore.fetchTableData();

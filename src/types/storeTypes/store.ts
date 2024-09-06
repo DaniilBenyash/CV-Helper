@@ -4,6 +4,16 @@ export interface IProject {
   lastDate: string;
   technologies: string[] | null;
   dateRange: number;
+  name: string;
+  description: string;
+}
+
+export interface IProjectData {
+  dates: string[];
+  technologies: string[];
+  name: string;
+  description: string;
+  responsibilities: string[];
 }
 
 export interface ITechnologiesMap {
@@ -24,13 +34,25 @@ export interface ISummaryField {
   [index: string]: string[];
 }
 
+export interface SelfInfo {
+  name: string;
+  roles: string;
+  education: string;
+  selfIntro: string;
+}
+
 export interface IProjectsStore {
   nextId: number;
   technologiesMap: ITechnologiesMap;
-  projects: IProject[];
   table: ITechnologiesTableData;
+  name: string;
+  roles: string;
+  education: string;
+  selfIntro: string;
+  projects: IProject[];
   summary: ISummaryField;
-  clearProjects: () => void;
+  addSelfInfo: (selfInfo: SelfInfo) => void;
+  clearStore: () => void;
   addEmptyProject: () => void;
   addProject: (project: IProject) => void;
   setDate: (id: number, dates: string, range: number) => void;

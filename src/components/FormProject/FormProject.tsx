@@ -15,7 +15,6 @@ export const FormProject: FC<FormProjectProps> = observer(({ projectData }) => {
   const {
     projects: { setDate, setTechnologies },
   } = useStore();
-
   const inputDateValues: [Dayjs, Dayjs] = [
     dayjs(projectData.firstDate, dateFormat),
     dayjs(projectData.lastDate, dateFormat),
