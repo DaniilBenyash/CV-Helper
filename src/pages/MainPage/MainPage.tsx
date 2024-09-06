@@ -1,4 +1,3 @@
-import { DocumentInput } from "@/components/DocumentInput";
 import { Flex } from "./styles";
 import { ListProjects } from "@/modules/components/ListProjects";
 import { TableSection } from "@/modules/components/TableSection";
@@ -10,12 +9,13 @@ import { observer } from "mobx-react-lite";
 import { Spinner } from "@/ui-kit/Spinner";
 import { TableLink } from "@/components/TableLink";
 import { RefetchDataButton } from "@/components/RefetchDataButton";
+import { DocumentInput } from "@/modules/components/DocumentInput";
 
 const isEmpty = <T extends object>(obj: T) => Object.keys(obj).length === 0;
 
 export const MainPage = observer(() => {
   const {
-    projects: { technologiesMap },
+    projects: { technologiesMap, name, roles, education, selfIntro },
   } = useStore();
 
   if (isEmpty(technologiesMap))
@@ -34,6 +34,12 @@ export const MainPage = observer(() => {
         <RefetchDataButton />
         <TableLink />
       </Flex>
+      <ul>
+        <li>{name}</li>
+        <li>{roles}</li>
+        <li>{education}</li>
+        <li>{selfIntro}</li>
+      </ul>
       <Flex gap={100} justify="start">
         <ListProjects />
         <TableSection />

@@ -5,6 +5,7 @@ import {
   IProject,
   ITechnologiesMap,
   ISummaryField,
+  SelfInfo,
 } from "@/types/storeTypes/store";
 import { getCurrentMonth } from "@/modules/utils/getCurrentMonth";
 import { normalizeDates } from "@/modules/utils/normalizeDates";
@@ -30,6 +31,10 @@ export class ProjectsStore implements IProjectsStore {
   summary: ISummaryField = {};
   hasCollisions: boolean = false;
   duplicatedValues: string[] = [];
+  name = "";
+  roles = "";
+  education: string = "";
+  selfIntro: string = "";
 
   constructor() {
     makeAutoObservable(this);
@@ -60,8 +65,21 @@ export class ProjectsStore implements IProjectsStore {
     this.updateSummary();
   };
 
-  clearProjects = () => {
+  addSelfInfo = (selfInfo: SelfInfo) => {
     runInAction(() => {
+      this.name = selfInfo.name;
+      this.roles = selfInfo.roles;
+      this.education = selfInfo.education;
+      this.selfIntro = selfInfo.selfIntro;
+    });
+  };
+
+  clearStore = () => {
+    runInAction(() => {
+      this.name = "";
+      this.roles = "";
+      this.education = "";
+      this.selfIntro = "";
       this.projects = [];
       this.table = {};
       this.nextId = 0;

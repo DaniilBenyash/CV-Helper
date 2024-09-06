@@ -1,14 +1,18 @@
 import { getCurrentMonth } from "@/modules/utils/getCurrentMonth";
 import { normalizeString } from "@/modules/utils/normalizeString";
-import { splitStringByCommaWithoutCommasInBraces } from "./splitStringByCommaWithoutCommasInBraces";
-import { removeBraces } from "./removeBraces";
-import { removeLastDot } from "./removeLastDot";
+import {
+  isNormalizedName,
+  removeBraces,
+  removeLastDot,
+  splitStringByCommaWithoutCommasInBraces,
+} from "./helpers";
 
 type ProjectData = {
   dates: string[];
   technologies: string[];
   name: string;
   description: string;
+  responsibilities: string[];
 };
 
 const convertDate = (str: string) => {
@@ -24,15 +28,16 @@ const prepareTechnologiesArr = (technologies: string) => {
 
 export const findProjectsData = (htmlStr: string) => {
   const regExp = /<[^>]*>/gm;
-  const arrWithStrings = htmlStr.split(regExp).filter((item) => item !== "");
+  const arrWithProjectStrings = htmlStr.split(regExp).filter((item) => item !== "");
 
-  const projectData = arrWithStrings.reduce(
+  const projectData = arrWithProjectStrings.reduce(
     (
       acc: {
         dates: string[][];
         technologies: string[];
         projectsNames: string[];
         projectsDescriptions: string[];
+        responsibilities: string[][];
       },
       item,
       index,
@@ -43,7 +48,7 @@ export const findProjectsData = (htmlStr: string) => {
       const previousOneItemsIndex = -1;
 
       const periodName = normalizeString(item);
-      if (periodName === "period") {
+      if (isNormalizedName("period", periodName)) {
         const dateString = array[index + nextItemIndex];
         const firstDate = convertDate(dateString.slice(0, 7));
         const lastDate =
@@ -53,20 +58,37 @@ export const findProjectsData = (htmlStr: string) => {
         acc.dates.push([firstDate, lastDate]);
       }
 
-      const technologiesName = normalizeString(item);
-      if (technologiesName === "environment" || technologiesName === "технологии") {
+      const environmentName = normalizeString(item);
+      if (isNormalizedName("environment", environmentName)) {
         acc.technologies.push(array[index + nextItemIndex]);
       }
 
       const projectRolesName = normalizeString(item);
-      if (projectRolesName === "projectroles") {
+      if (isNormalizedName("projectRoles", projectRolesName)) {
         acc.projectsNames.push(array[index + previousTwoItemsIndex]);
         acc.projectsDescriptions.push(array[index + previousOneItemsIndex]);
       }
 
+      const responsibilitiesName = normalizeString(item);
+      if (isNormalizedName("responsibilities", responsibilitiesName)) {
+        const subArrayFromResponsibilitiesIndex = array.slice(index + 1);
+        const indexOfEnvironmentName = subArrayFromResponsibilitiesIndex.findIndex((item) =>
+          isNormalizedName("environment", normalizeString(item)),
+        );
+        const responsibilities = subArrayFromResponsibilitiesIndex.slice(0, indexOfEnvironmentName);
+
+        acc.responsibilities.push(responsibilities);
+      }
+
       return acc;
     },
-    { dates: [], technologies: [], projectsNames: [], projectsDescriptions: [] },
+    {
+      dates: [],
+      technologies: [],
+      projectsNames: [],
+      projectsDescriptions: [],
+      responsibilities: [],
+    },
   );
 
   const result: ProjectData[] = [];
@@ -78,6 +100,7 @@ export const findProjectsData = (htmlStr: string) => {
         technologies: prepareTechnologiesArr(projectData.technologies[key]),
         name: projectData.projectsNames[key],
         description: projectData.projectsDescriptions[key],
+        responsibilities: projectData.responsibilities[key],
       };
 
       result.push(preparedObject);
