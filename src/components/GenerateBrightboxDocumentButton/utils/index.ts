@@ -1,5 +1,6 @@
-import { ITechnologiesTableData, ITechnology } from "@/types/storeTypes";
+import { ISummaryField, ITechnologiesTableData, ITechnology } from "@/types/storeTypes";
 import { capitalize } from "@/modules/utils/capitalize";
+import { SectionsNames } from "@/enums/sectionsNames";
 
 type DataForGenerating = { sections: { section: string; technologies: ITechnology[] }[] };
 
@@ -30,3 +31,47 @@ export const generateStringWithLinebreaks = <T>(
     }
     return acc + value + "\n";
   }, "");
+
+const summaryWeights: Partial<Record<SectionsNames, number>> = {
+  [SectionsNames.ProgrammingLanguages]: 0,
+  [SectionsNames.Frontend]: 1,
+  [SectionsNames.BackendTechnologies]: 2,
+  [SectionsNames.Containerization]: 3,
+  [SectionsNames.CiCd]: 4,
+  [SectionsNames.Cloud]: 5,
+  [SectionsNames.Databases]: 6,
+};
+
+// Summary data must be converted from
+// {
+//   ProgarammingLanguages: ['JavaScript', 'Typescript'],
+//   Frontend: ['React', 'Redux']
+// }
+// to
+// [
+//   {
+//     name: 'ProgarammingLanguages',
+//     data: 'JavaScript, Typescript'
+//   },
+//   {
+//     name: 'Frontend',
+//     data: 'React, Redux'
+//   }
+// ]
+
+export const prepareSummaryData = (summary: ISummaryField) => {
+  return Object.entries(summary)
+    .map(([summaryName, arr]) => ({
+      summaryName,
+      summaryData: arr.join(", "),
+    }))
+    .sort((a, b) => {
+      const first = summaryWeights[a.summaryName as keyof Partial<Record<SectionsNames, number>>];
+      const second = summaryWeights[b.summaryName as keyof Partial<Record<SectionsNames, number>>];
+
+      if (!first || !second) return 1;
+
+      return first - second;
+    })
+    .filter((item) => item.summaryData);
+};

@@ -1,4 +1,4 @@
-import { SectionsNames } from "../enums/sectionsNames";
+import { SectionsNames } from "../../../enums/sectionsNames";
 
 export const sectionsOrder = [
   SectionsNames.MarkdownLanguages,
