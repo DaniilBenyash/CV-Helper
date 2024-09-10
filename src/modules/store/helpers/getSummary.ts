@@ -1,6 +1,6 @@
 import { normalizeString } from "@/modules/utils/normalizeString";
 import { IProject, ITechnologiesMap } from "../../../types/storeTypes";
-import { SectionsNames } from "../enums/sectionsNames";
+import { SectionsNames } from "../../../enums/sectionsNames";
 
 type Map = Partial<Record<SectionsNames, string[]>>;
 
@@ -60,6 +60,15 @@ export const getSummary = (projects: IProject[], technologiesMap: ITechnologiesM
         summary[SectionsNames.Frontend]!.push(original);
       }
     });
+
+  // Delete empty summary sections
+  for (const key in summary) {
+    const typedKey = key as keyof typeof summary;
+
+    if (summary[typedKey]!.length === 0) {
+      delete summary[typedKey];
+    }
+  }
 
   const hasCollisions = uniqueTechnologies.length !== normalizedSet.length;
   const duplicatedValues = findDuplicates(uniqueTechnologies);

@@ -36,6 +36,7 @@ export const DocumentInput = observer(() => {
             dateRange: calculateDateRange(item.dates[0], item.dates[1]),
             technologies: item.technologies,
             name: item.name,
+            responsibilities: item.responsibilities,
             description: item.description,
           });
         });
