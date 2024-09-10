@@ -11,7 +11,7 @@ function loadFile(url: string, callback: (err: Error, data: string) => void) {
   PizZipUtils.getBinaryContent(url, callback);
 }
 
-export const GenerateBrightboxDocumentButton = observer(() => {
+export const GenerateBrightboxFormatDocumentButton = observer(() => {
   const {
     projects: { name, roles, education, selfIntro, summary, projects },
   } = useStore();
