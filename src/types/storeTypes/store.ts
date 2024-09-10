@@ -3,6 +3,7 @@ export interface IProject {
   firstDate: string;
   lastDate: string;
   technologies: string[] | null;
+  responsibilities: string[];
   dateRange: number;
   name: string;
   description: string;

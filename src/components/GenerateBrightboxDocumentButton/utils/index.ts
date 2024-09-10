@@ -1,36 +1,5 @@
-import { ISummaryField, ITechnologiesTableData, ITechnology } from "@/types/storeTypes";
-import { capitalize } from "@/modules/utils/capitalize";
+import { IProject, ISummaryField } from "@/types/storeTypes";
 import { SectionsNames } from "@/enums/sectionsNames";
-
-type DataForGenerating = { sections: { section: string; technologies: ITechnology[] }[] };
-
-export const getDataForDocumentGenerating = (table: ITechnologiesTableData) => {
-  return Object.entries(table).reduce(
-    (acc: DataForGenerating, item) => {
-      const section = capitalize(item[0]);
-      acc.sections.push({
-        section,
-        technologies: item[1],
-      });
-      return acc;
-    },
-    { sections: [] },
-  );
-};
-
-export const generateStringWithLinebreaks = <T>(
-  arr: T[],
-  fieldName: keyof T,
-  conversionCallback?: (str: T[keyof T]) => number,
-): string =>
-  arr.reduce((acc, item, index, array) => {
-    const value = conversionCallback ? conversionCallback(item[fieldName]) : item[fieldName];
-
-    if (index === array.length - 1) {
-      return acc + value;
-    }
-    return acc + value + "\n";
-  }, "");
 
 const summaryWeights: Partial<Record<SectionsNames, number>> = {
   [SectionsNames.ProgrammingLanguages]: 0,
@@ -44,13 +13,13 @@ const summaryWeights: Partial<Record<SectionsNames, number>> = {
 
 // Summary data must be converted from
 // {
-//   ProgarammingLanguages: ['JavaScript', 'Typescript'],
+//   'Progaramming Languages': ['JavaScript', 'Typescript'],
 //   Frontend: ['React', 'Redux']
 // }
 // to
 // [
 //   {
-//     name: 'ProgarammingLanguages',
+//     name: 'Progaramming Languages',
 //     data: 'JavaScript, Typescript'
 //   },
 //   {
@@ -72,6 +41,27 @@ export const prepareSummaryData = (summary: ISummaryField) => {
       if (!first || !second) return 1;
 
       return first - second;
-    })
-    .filter((item) => item.summaryData);
+    });
 };
+
+const convertDateFormat = (date: IProject["firstDate"] | IProject["lastDate"]) => {
+  const [year, month] = date.split("-");
+
+  return `${month}.${year}`;
+};
+
+export const prepareProjectsData = (projects: IProject[]) =>
+  projects.map((project) => {
+    const preparedDate = `${convertDateFormat(project.firstDate)} - ${convertDateFormat(project.lastDate)}`;
+    const preparedResponsibilities = project.responsibilities.map((resp) => ({
+      resp,
+    }));
+    const preparedTechnologies = project.technologies?.map((tech) => ({ tech }));
+
+    return {
+      ...project,
+      date: preparedDate,
+      responsibilities: preparedResponsibilities,
+      technologies: preparedTechnologies,
+    };
+  });

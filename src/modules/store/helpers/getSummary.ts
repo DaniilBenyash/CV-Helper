@@ -61,6 +61,15 @@ export const getSummary = (projects: IProject[], technologiesMap: ITechnologiesM
       }
     });
 
+  // Delete empty summary sections
+  for (const key in summary) {
+    const typedKey = key as keyof typeof summary;
+
+    if (summary[typedKey]!.length === 0) {
+      delete summary[typedKey];
+    }
+  }
+
   const hasCollisions = uniqueTechnologies.length !== normalizedSet.length;
   const duplicatedValues = findDuplicates(uniqueTechnologies);
 

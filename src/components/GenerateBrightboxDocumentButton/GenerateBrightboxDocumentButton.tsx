@@ -6,14 +6,14 @@ import expressionParser from "docxtemplater/expressions";
 import { Button } from "antd";
 import { useStore } from "@/modules/hooks";
 import { observer } from "mobx-react-lite";
-import { prepareSummaryData } from "./utils";
+import { prepareProjectsData, prepareSummaryData } from "./utils";
 function loadFile(url: string, callback: (err: Error, data: string) => void) {
   PizZipUtils.getBinaryContent(url, callback);
 }
 
 export const GenerateBrightboxDocumentButton = observer(() => {
   const {
-    projects: { name, roles, education, selfIntro, summary },
+    projects: { name, roles, education, selfIntro, summary, projects },
   } = useStore();
 
   const generateDocument = () => {
@@ -34,8 +34,8 @@ export const GenerateBrightboxDocumentButton = observer(() => {
         roles,
         education,
         selfIntro,
-        //TODO: check possibility to filter empty summary sections into prepareSummaryData
         summary: preparedSummaryData,
+        projects: prepareProjectsData(projects),
       });
       const out = doc.getZip().generate({
         type: "blob",
