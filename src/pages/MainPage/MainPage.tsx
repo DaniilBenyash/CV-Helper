@@ -10,7 +10,7 @@ import { Spinner } from "@/ui-kit/Spinner";
 import { TableLink } from "@/components/TableLink";
 import { RefetchDataButton } from "@/components/RefetchDataButton";
 import { DocumentInput } from "@/modules/components/DocumentInput";
-import { GenerateBrightboxFormatDocumentButton } from "@/components/GenerateBrightBoxDocumentButton";
+import { GenerateBrightboxFormatDocumentButton } from "@/components/GenerateBrightBoxFormatDocumentButton";
 
 const isEmpty = <T extends object>(obj: T) => Object.keys(obj).length === 0;
 
