@@ -51,10 +51,9 @@ export const findProjectsData = (htmlStr: string) => {
       if (isNormalizedName("period", periodName)) {
         const dateString = array[index + nextItemIndex];
         const firstDate = convertDate(dateString.slice(0, 7));
-        const lastDate =
-          normalizeString(dateString.slice(10)) === "tillnow"
-            ? getCurrentMonth()
-            : convertDate(dateString.slice(10));
+        const lastDate = isNormalizedName("tillNow", normalizeString(dateString.slice(10)))
+          ? getCurrentMonth()
+          : convertDate(dateString.slice(10));
         acc.dates.push([firstDate, lastDate]);
       }
 
