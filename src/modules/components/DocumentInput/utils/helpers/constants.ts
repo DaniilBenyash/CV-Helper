@@ -5,5 +5,5 @@ export const normalizedNames = {
   period: ["period", "период"],
   environment: ["environment", "технологии"],
   projectRoles: ["projectroles", "должность"],
-  responsibilities: ["responsibilities", "обязанности"],
+  responsibilities: ["responsibilities", "responsibilitiesampachievements", "обязанности"],
 };
