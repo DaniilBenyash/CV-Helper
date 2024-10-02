@@ -1,5 +1,5 @@
 import { Button, Flex, Title } from "@/ui-kit";
-import { FormProject } from "@/components/FormProject";
+import { FormProject } from "@/modules/components/FormProject";
 import { useStore } from "@/modules/hooks";
 import { observer } from "mobx-react-lite";
 
