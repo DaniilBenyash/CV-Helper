@@ -1,10 +1,10 @@
+import { normalizeString } from "@/modules/utils/normalizeString";
 import {
   IProject,
   ITechnologiesMap,
   ITechnologiesTableData,
   ISectionsSortingWeights,
-} from "../../../types/storeTypes";
-import { normalizeString } from "../../utils/normalizeString";
+} from "@/types/storeTypes";
 import { sectionsOrder } from "../constants/sectionsOrder";
 
 // Here calculate the weights of the technology objects, where weight is the index of the key array

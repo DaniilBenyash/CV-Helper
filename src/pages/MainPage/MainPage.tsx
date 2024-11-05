@@ -1,16 +1,16 @@
 import { Flex } from "./styles";
 import { ListProjects } from "@/modules/components/ListProjects";
 import { TableSection } from "@/modules/components/TableSection";
-import { ReloadPageButton } from "@/components/ReloadPageButton";
-import { GenerateDocumentButton } from "@/components/GenerateDocumentButton";
+import { ReloadPageButton } from "@/modules/components/ReloadPageButton";
+import { GenerateDocumentButton } from "@/modules/components/GenerateDocumentButton";
 import { SummarizingField } from "@/modules/components/SummarizingField";
 import { useStore } from "@/modules/hooks";
 import { observer } from "mobx-react-lite";
 import { Spinner } from "@/ui-kit/Spinner";
 import { TableLink } from "@/components/TableLink";
-import { RefetchDataButton } from "@/components/RefetchDataButton";
+import { RefetchDataButton } from "@/modules/components/RefetchDataButton";
 import { DocumentInput } from "@/modules/components/DocumentInput";
-import { GenerateBrightboxFormatDocumentButton } from "@/components/GenerateBrightBoxFormatDocumentButton";
+import { GenerateBrightboxFormatDocumentButton } from "@/modules/components/GenerateBrightBoxFormatDocumentButton";
 
 const isEmpty = <T extends object>(obj: T) => Object.keys(obj).length === 0;
 
