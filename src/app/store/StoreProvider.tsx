@@ -1,5 +1,5 @@
+import { projectsStore } from "@/store/projects-store";
 import { FC, ReactNode, createContext } from "react";
-import { projectsStore } from "@/modules/store/projects-store";
 
 class RootStore {
   projects = projectsStore;

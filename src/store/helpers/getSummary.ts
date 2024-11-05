@@ -1,6 +1,6 @@
+import { SectionsNames } from "@/enums/sectionsNames";
 import { normalizeString } from "@/modules/utils/normalizeString";
-import { IProject, ITechnologiesMap } from "../../../types/storeTypes";
-import { SectionsNames } from "../../../enums/sectionsNames";
+import { IProject, ITechnologiesMap } from "@/types/storeTypes";
 
 type Map = Partial<Record<SectionsNames, string[]>>;
 
