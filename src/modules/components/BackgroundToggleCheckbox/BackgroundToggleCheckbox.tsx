@@ -14,11 +14,9 @@ export const BackgroundToggleCheckbox = () => {
       document.body.style.backgroundRepeat = "no-repeat";
       document.body.style.backgroundPosition = "top";
       document.body.style.backgroundColor = "gray";
-      document.body.style.setProperty("color", "white", "important");
     } else {
       document.body.style.backgroundImage = "";
       document.body.style.backgroundColor = "";
-      document.body.style.removeProperty("color");
     }
   };
 
