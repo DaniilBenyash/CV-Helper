@@ -4,7 +4,7 @@ import PizZipUtils from "pizzip/utils/index.js";
 import { saveAs } from "file-saver";
 import expressionParser from "docxtemplater/expressions";
 import { Button } from "antd";
-import { useStore } from "@/modules/hooks";
+import { useStore } from "@/hooks";
 import { observer } from "mobx-react-lite";
 import { prepareProjectsData, prepareSummaryData } from "./utils";
 function loadFile(url: string, callback: (err: Error, data: string) => void) {

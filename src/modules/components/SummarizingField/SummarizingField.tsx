@@ -1,5 +1,5 @@
 import { observer } from "mobx-react-lite";
-import { useStore } from "@/modules/hooks";
+import { useStore } from "@/hooks";
 import { Flex, Typography } from "antd";
 import { normalizeString } from "@/modules/utils/normalizeString";
 import { FC, useCallback, useMemo } from "react";

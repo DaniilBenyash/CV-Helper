@@ -4,7 +4,7 @@ import { TableSection } from "@/modules/components/TableSection";
 import { ReloadPageButton } from "@/modules/components/ReloadPageButton";
 import { GenerateDocumentButton } from "@/modules/components/GenerateDocumentButton";
 import { SummarizingField } from "@/modules/components/SummarizingField";
-import { useStore } from "@/modules/hooks";
+import { useStore } from "@/hooks";
 import { observer } from "mobx-react-lite";
 import { Spinner } from "@/ui-kit/Spinner";
 import { TableLink } from "@/components/TableLink";
