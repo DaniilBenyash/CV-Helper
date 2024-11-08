@@ -9,13 +9,13 @@ export const BackgroundToggleCheckbox = () => {
     setChecked(checked);
 
     if (checked) {
-      document.body.style.backgroundImage = "url('/innowise.jpg')";
+      // document.body.style.backgroundImage = "url('/innowise.jpg')";
       document.body.style.backgroundSize = "auto 100vh";
       document.body.style.backgroundRepeat = "no-repeat";
       document.body.style.backgroundPosition = "top";
       document.body.style.backgroundColor = "gray";
     } else {
-      document.body.style.backgroundImage = "";
+      // document.body.style.backgroundImage = "";
       document.body.style.backgroundColor = "";
     }
   };
