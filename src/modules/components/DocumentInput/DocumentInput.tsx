@@ -1,4 +1,4 @@
-import { useStore } from "@/modules/hooks";
+import { useStore } from "@/hooks";
 import { calculateDateRange } from "@/modules/utils/calculateDateRange";
 import mammoth from "mammoth";
 import { observer } from "mobx-react-lite";

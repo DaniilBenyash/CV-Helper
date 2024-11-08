@@ -1,6 +1,6 @@
 import { observer } from "mobx-react-lite";
 import { Table } from "@/components/Table";
-import { useStore } from "@/modules/hooks";
+import { useStore } from "@/hooks";
 import { Flex, Title } from "@/ui-kit";
 
 export const TableSection = observer(() => {

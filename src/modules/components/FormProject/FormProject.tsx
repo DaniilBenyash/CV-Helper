@@ -1,7 +1,7 @@
 import { InputDate, TextArea, Flex } from "@/ui-kit";
 import dayjs, { Dayjs } from "dayjs";
 import { FC } from "react";
-import { useStore } from "@/modules/hooks";
+import { useStore } from "@/hooks";
 import { IProject } from "@/types/storeTypes";
 import { calculateDateRange } from "@/modules/utils/calculateDateRange";
 import { dateFormat } from "@/modules/constants";

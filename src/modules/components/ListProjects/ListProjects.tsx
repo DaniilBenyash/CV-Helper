@@ -1,6 +1,6 @@
 import { Button, Flex, Title } from "@/ui-kit";
 import { FormProject } from "@/modules/components/FormProject";
-import { useStore } from "@/modules/hooks";
+import { useStore } from "@/hooks";
 import { observer } from "mobx-react-lite";
 
 // TODO should make this component more designable

@@ -1,4 +1,4 @@
-import { useStore } from "@/modules/hooks";
+import { useStore } from "@/hooks";
 import { Button } from "antd";
 import { observer } from "mobx-react-lite";
 import { useState } from "react";

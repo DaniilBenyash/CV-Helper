@@ -4,13 +4,14 @@ import { TableSection } from "@/modules/components/TableSection";
 import { ReloadPageButton } from "@/modules/components/ReloadPageButton";
 import { GenerateDocumentButton } from "@/modules/components/GenerateDocumentButton";
 import { SummarizingField } from "@/modules/components/SummarizingField";
-import { useStore } from "@/modules/hooks";
+import { useStore } from "@/hooks";
 import { observer } from "mobx-react-lite";
 import { Spinner } from "@/ui-kit/Spinner";
 import { TableLink } from "@/components/TableLink";
 import { RefetchDataButton } from "@/modules/components/RefetchDataButton";
 import { DocumentInput } from "@/modules/components/DocumentInput";
 import { GenerateBrightboxFormatDocumentButton } from "@/modules/components/GenerateBrightBoxFormatDocumentButton";
+import { BackgroundToggleCheckbox } from "@/modules/components/BackgroundToggleCheckbox";
 
 const isEmpty = <T extends object>(obj: T) => Object.keys(obj).length === 0;
 
@@ -35,6 +36,7 @@ export const MainPage = observer(() => {
         <GenerateBrightboxFormatDocumentButton />
         <RefetchDataButton />
         <TableLink />
+        <BackgroundToggleCheckbox />
       </Flex>
       <Flex gap={100} justify="start">
         <ListProjects />
